@@ -377,7 +377,7 @@ class _FillFormState extends State<FillForm> {
                   color: Colors.black), // Remove default AppBar shadow
               title: Center(
                 child: Image.asset(
-                  ImageConstant.wowInviteImage,
+                  ImageConstant.celebrareImage,
                   width: 144,
                   height: 39,
                 ),
