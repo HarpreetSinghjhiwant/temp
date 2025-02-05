@@ -12,5 +12,6 @@ class ImageConstant {
 
   static String groomImage = '$imagePath/img_group_1321314841_1.png';
   static String celebrareImage = '$imagePath/image_celebrare.png';
+  static String googleLogo = '$imagePath/google_logo.png';
 }
 

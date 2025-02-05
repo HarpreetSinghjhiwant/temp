@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:temp/pages/fill_form.dart';
 import 'package:temp/pages/language_page.dart';
+import 'package:temp/pages/login_page.dart';
 import 'core/app_export.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -20,10 +21,11 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-          initialRoute: '/',
+          initialRoute: '/login',
           debugShowCheckedModeBanner: false,
           routes:{
             '/': (context) => FillForm(),
+            '/login':(context) => LoginPage(),
           },
           builder: (context, child) {
             return MediaQuery(
