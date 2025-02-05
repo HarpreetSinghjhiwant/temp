@@ -305,7 +305,7 @@ class _TransliterateFormField extends State<TransliterateFormField> {
               ? SizedBox(
                   width: 8,
                   height: 8,
-                  child: CircularProgressIndicator(strokeWidth: 1),
+                  child: CircularProgressIndicator(strokeWidth: 1, color: Color(0xFF4E9459),),
                 )
               : null),
       scrollPadding: widget.scrollPadding,

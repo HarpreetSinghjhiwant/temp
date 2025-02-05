@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           debugShowCheckedModeBanner: false,
           routes:{
-            '/': (context) => LanguagePage(),
+            '/': (context) => FillForm(),
           },
           builder: (context, child) {
             return MediaQuery(

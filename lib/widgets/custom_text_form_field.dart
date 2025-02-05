@@ -16,7 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   CustomTextFormField(
       {Key? key,
       this.alignment,
-      this.languageCode,
+      this.languageCode='en',
       this.width,
       this.boxDecoration,
       this.scrollPadding,
@@ -47,7 +47,7 @@ class CustomTextFormField extends StatelessWidget {
 
   final Alignment? alignment;
 
-  final String? languageCode;
+  final String languageCode;
 
   final double? width;
 
@@ -110,7 +110,7 @@ class CustomTextFormField extends StatelessWidget {
         width: width ?? double.maxFinite,
         decoration: boxDecoration,
         child: TransliterateFormField(
-          languageCode: languageCode!,
+          languageCode: languageCode,
           scrollPadding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           controller: controller!,

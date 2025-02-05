@@ -20,9 +20,7 @@ import 'package:path_provider/path_provider.dart';
 
 // Statefull Fill Form Widget
 class FillForm extends StatefulWidget {
-  final String? languageCode;
-  bool caricature;
-  FillForm({super.key, required this.languageCode, this.caricature = false});
+  FillForm({super.key});
 
   @override
   State<FillForm> createState() => _FillFormState();
@@ -35,8 +33,21 @@ class _FillFormState extends State<FillForm> {
   final List<TextEditingController> groomControllers =
       List.generate(5, (index) => TextEditingController());
 
+  TextEditingController weddingDateController = TextEditingController();
+
   // Keeps track of selected side (Bride or Groom)
   String side = 'Bride';
+
+  Map<String,String> languageCode = {
+    'English': 'en',
+    'हिंदी': 'hi',
+    'தமிழ்': 'ta',
+    'मराठी': 'mr',
+    'తెలుగు': 'te',
+    'ગુજરાતી': 'gu',
+  };
+
+  String selectedLang = 'English';
 
   // Toggles the display of instruction modal
   bool isInst = true;
@@ -44,47 +55,23 @@ class _FillFormState extends State<FillForm> {
   // Stores event data as a list of maps
   List<Map<String, String>> eventList = [];
 
-  // File paths for selected bride and groom images
-  String brideImage = '';
-  String groomImage = '';
-
-  String brideImageString = '';
-  String groomImageString = '';
-
   // Manages expansion states for form sections
-  List<bool> isExpandedList = [true, false, false, false];
-  List<bool> isCompletedList = [false, false, false, false];
+  List<bool> isExpandedList = [true, false, false];
+  List<bool> isCompletedList = [false, false, false];
 
   int currentPage = 0; // Current form page being viewed
   int tempCurrentPage = 0; // Temporarily tracks current page
 
   final List<ExpansionTileController> expansionControllers =
-      List.generate(4, (index) => ExpansionTileController());
+      List.generate(3, (index) => ExpansionTileController());
 
   // Controllers for event form inputs
   final List<TextEditingController> eventControllers =
       List.generate(3, (index) => TextEditingController());
 
-  final List<Map<String, String>> imageUrl = [
-    {
-      'Image1':
-          'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=300', // Wedding venue
-      'Image2':
-          'https://images.unsplash.com/photo-1464699908537-0954e50791ee?q=80&w=300', // Reception hall
-      'Image3':
-          'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=300', // Wedding ceremony
-      'Image4':
-          'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=300', // Wedding decoration
-    }
-  ];
-
-  List<bool> selectedImages = [false, false, false, false];
-
   // Tracks whether in edit mode for events
   bool isEdit = false;
   bool isSelect = false;
-
-  String selectImage = ''; // Stores the selected image path
 
   FocusNode dateFocusNode = FocusNode(); // Focus node for date input field
 
@@ -105,15 +92,12 @@ class _FillFormState extends State<FillForm> {
   final _brideAndGroomKey =
       GlobalKey<FormState>(); // Key to validate bride and groom name form
 
+  final _langAndDateKey =
+      GlobalKey<FormState>();
+
   final ScrollController _scrollController = ScrollController();
 
   bool caricature = true;
-
-  void preloadImages(BuildContext context) {
-    for (var url in imageUrl[0].values) {
-      precacheImage(NetworkImage(url), context);
-    }
-  }
 
   @override
   void initState() {
@@ -123,12 +107,6 @@ class _FillFormState extends State<FillForm> {
 
   Future<void> _initializeData() async {
     await loadData();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    preloadImages(context);
   }
 
 //// Dispose Method
@@ -145,101 +123,69 @@ class _FillFormState extends State<FillForm> {
 
 // Save data to Hive
   Future<void> saveData(Map<String, dynamic> formData) async {
-    // Open a Hive box
+  try {
     final box = await Hive.openBox('formDataBox');
-
-    // Save the formData as a string
     String jsonString = jsonEncode(formData);
     await box.put('formData', jsonString);
-
-    // Close the box after saving
-    await box.close();
+    print('Data saved successfully: $jsonString'); // Add logging
+  } catch (e) {
+    print('Error saving data: $e');
   }
+}
 
 // Load data from Hive
   Future<void> loadData() async {
-    // Open the Hive box
+  try {
     final box = await Hive.openBox('formDataBox');
     String? jsonString = box.get('formData');
+    print('Loaded data from Hive: $jsonString'); // Add logging
 
     if (jsonString != null && jsonString.isNotEmpty) {
-      try {
-        // Decode JSON string
-        Map<String, dynamic> dataFiles = jsonDecode(jsonString);
-
-        // Initialize variables with decoded data
-        Map<String, String> groomData = {
-          'groomName': dataFiles['groomName'] ?? '',
-          'groomMother': dataFiles['groomMother'] ?? '',
-          'groomFather': dataFiles['groomFather'] ?? '',
-          'groomGrandmother': dataFiles['groomGrandmother'] ?? '',
-          'groomGrandfather': dataFiles['groomGrandfather'] ?? '',
-        };
-
-        Map<String, String> brideData = {
-          'brideName': dataFiles['brideName'] ?? '',
-          'brideMother': dataFiles['brideMother'] ?? '',
-          'brideFather': dataFiles['brideFather'] ?? '',
-          'brideGrandmother': dataFiles['brideGrandmother'] ?? '',
-          'brideGrandfather': dataFiles['brideGrandfather'] ?? '',
-        };
-
-        List<Map<String, String>> tempEventList =
-            (jsonDecode(dataFiles['events'] ?? '[]') as List)
-                .map((e) => Map<String, String>.from(e))
-                .toList();
-
-
-        Map<String, dynamic> musicFile = jsonDecode(dataFiles['selectedAudio']);
-
-        List<bool> tempSelectedImages = List.generate(4, (i) => false);
-        tempEventList.forEach((event) {
-          for (int i = 0; i < 4; i++) {
-            if (imageUrl[0]['Image${i + 1}'] == event['image']) {
-              tempSelectedImages[i] = true;
-              break;
-            }
-          }
-        });
-
-        setState(() {
-          isExpandedList[0] = false;
+      Map<String, dynamic> dataFiles = jsonDecode(jsonString);
+      
+      // Add null checks and default values
+      setState(() {
+        selectedLang = dataFiles['language'] ?? 'English';
+        side = dataFiles['side'] ?? 'Bride';
+        weddingDateController.text = dataFiles['weddingDate'] ?? '';
+        
+        // Load groom details with null checks
+        groomControllers[0].text = dataFiles['groomName'] ?? '';
+        groomControllers[1].text = dataFiles['groomMother'] ?? '';
+        groomControllers[2].text = dataFiles['groomFather'] ?? '';
+        groomControllers[3].text = dataFiles['groomGrandmother'] ?? '';
+        groomControllers[4].text = dataFiles['groomGrandfather'] ?? '';
+        
+        // Load bride details with null checks
+        brideControllers[0].text = dataFiles['brideName'] ?? '';
+        brideControllers[1].text = dataFiles['brideMother'] ?? '';
+        brideControllers[2].text = dataFiles['brideFather'] ?? '';
+        brideControllers[3].text = dataFiles['brideGrandmother'] ?? '';
+        brideControllers[4].text = dataFiles['brideGrandfather'] ?? '';
+        
+        // Load events with proper type casting
+        try {
+          List<dynamic> decodedEvents = jsonDecode(dataFiles['events'] ?? '[]');
+          eventList = decodedEvents
+              .map((e) => Map<String, String>.from(e))
+              .toList();
+        } catch (e) {
+          print('Error parsing events: $e');
+          eventList = [];
+        }
+        
+        // Update UI states
+        isExpandedList[0] = false;
           expansionControllers[0].collapse();
           for (int i = 0; i < 4; i++) {
             isCompletedList[i] = true;
           }
-          groomControllers[0].text = groomData['groomName']!;
-          brideControllers[0].text = brideData['brideName']!;
-          side = dataFiles['side'] ?? '';
-          groomControllers[1].text = groomData['groomMother']!;
-          groomControllers[2].text = groomData['groomFather']!;
-          groomControllers[3].text = groomData['groomGrandmother']!;
-          groomControllers[4].text = groomData['groomGrandfather']!;
-          brideControllers[1].text = brideData['brideMother']!;
-          brideControllers[2].text = brideData['brideFather']!;
-          brideControllers[3].text = brideData['brideGrandmother']!;
-          brideControllers[4].text = brideData['brideGrandfather']!;
-          brideImage = dataFiles['brideImage'] ?? '';
-          groomImage = dataFiles['groomImage'] ?? '';
-          eventList = tempEventList;
-          selectedImages = tempSelectedImages;
-          if (!widget.caricature) {
-            isExpandedList[3] = true;
-            expansionControllers[3].expand();
-            widget.caricature = true;
-            caricature = false;
-          }
-        });
-      } catch (e) {
-        print('Error loading data: $e');
-      }
-    } else {
-      print('No saved data found');
+      });
     }
-
-    // Close the box after loading
-    await box.close();
+  } catch (e) {
+    print('Error loading data: $e');
   }
+}
 //// End of Load data function
 
 
@@ -664,10 +610,6 @@ class _FillFormState extends State<FillForm> {
                                 String eventVenue =
                                     event['details'] ?? 'Event Venue';
 
-                                String eventImage = event['image'] ??
-                                    imageUrl[0]['Image1'] ??
-                                    '';
-
                                 return Container(
                                   margin: EdgeInsets.only(bottom: 28),
                                   decoration: BoxDecoration(
@@ -712,18 +654,6 @@ class _FillFormState extends State<FillForm> {
                                                   width: 40.h,
                                                   onTap: () {
                                                     setState(() {
-                                                      // Remove event
-                                                      for (int i = 0;
-                                                          i < 4;
-                                                          i++) {
-                                                        if (imageUrl[0][
-                                                                'Image${i + 1}'] ==
-                                                            event['image']) {
-                                                          selectedImages[i] =
-                                                              false;
-                                                          break;
-                                                        }
-                                                      }
                                                       eventList.remove(event);
                                                     });
                                                   },
@@ -762,8 +692,6 @@ class _FillFormState extends State<FillForm> {
                                                               .replaceAll(
                                                                   'Venue - ',
                                                                   '');
-                                                      selectImage =
-                                                          event['image']!;
                                                     });
                                                     // Open the bottom sheet with the event data for editing
                                                     showEventBottomSheet(
@@ -816,7 +744,6 @@ class _FillFormState extends State<FillForm> {
                       eventControllers[0].clear();
                       eventControllers[1].clear();
                       eventControllers[2].clear();
-                      selectImage = '';
                     });
                     showEventBottomSheet(context, {});
                   } else {
@@ -919,110 +846,12 @@ class _FillFormState extends State<FillForm> {
           decoration: AppDecoration.fillOnPrimary.copyWith(
             borderRadius: BorderRadiusStyle.roundedBorder12,
           ),
-          child: isSelect
-              ? _buildImageSelectionView(setSheetState)
-              : _buildEventFormView(context, events),
+          child:_buildEventFormView(context, events),
         );
       },
     );
   }
 
-  ///End of Original bottom sheet widget without the close button
-
-  /// Original Image Selection View without the close button
-  Widget _buildImageSelectionView(StateSetter setSheetState) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              'Click to select event',
-              style: theme.textTheme.titleLarge,
-            ),
-          ),
-        ),
-        _buildImageGrid(setSheetState),
-      ],
-    );
-  }
-
-  /// Original Image Selection View without the close button
-
-  /// Widget build Image Grid
-  Widget _buildImageGrid(StateSetter setSheetState) {
-    return Flexible(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildImageRow(setSheetState, 0),
-            _buildImageRow(setSheetState, 2),
-          ],
-        ),
-      ),
-    );
-  }
-
-  ///End of Widget build Image Grid
-
-  /// Widget build Image Row
-  Widget _buildImageRow(StateSetter setSheetState, int start) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(2, (index) {
-          final imageNumber = start + index + 1;
-          final selectedIndex = start + index;
-          final imageKey = 'Image$imageNumber';
-
-          return GestureDetector(
-            onTap: () {
-              if (!selectedImages[selectedIndex]) {
-                setSheetState(() {
-                  isSelect = false;
-                  selectImage = imageUrl[0][imageKey] ?? '';
-                });
-                setState(() {
-                  isSelect = false;
-                  selectImage = imageUrl[0][imageKey] ?? '';
-                });
-              }
-            },
-            child: ColorFiltered(
-              colorFilter: selectedImages[selectedIndex]
-                  ? const ColorFilter.matrix(<double>[
-                      0.15, 0.15, 0.15, 0, 0, // Red channel
-                      0.15, 0.15, 0.15, 0, 0, // Green channel
-                      0.15, 0.15, 0.15, 0, 0, // Blue channel
-                      0, 0, 0, 1, 0, // Alpha channel
-                    ])
-                  : const ColorFilter.mode(
-                      Colors.transparent, BlendMode.multiply),
-              child: CachedNetworkImage(
-                imageUrl: imageUrl[0][imageKey] ?? '',
-                fit: BoxFit.cover,
-                width: 136.h,
-                height: 258.h,
-                placeholder: (context, url) => Center(
-                  child: CircularProgressIndicator(
-                    color: Color(0xFF4E9459),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Center(
-                  child: Icon(Icons.error),
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
-
-  ///End of Widget build Image Row
 
   /// Widget build Event Form View
   Widget _buildEventFormView(BuildContext context, Map<String, String> events) {
@@ -1040,19 +869,6 @@ class _FillFormState extends State<FillForm> {
                   Text(
                     isEdit ? "Edit Event Details" : "Add Event Details",
                     style: theme.textTheme.titleLarge,
-                  ),
-                  SizedBox(height: 26.h),
-                  Container(
-                    width: 136.h,
-                    height: 258.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.h),
-                      image: DecorationImage(
-                        image: NetworkImage(selectImage),
-                        fit: BoxFit.cover,
-                        // Add color filter to make image look disabled
-                      ),
-                    ),
                   ),
                   SizedBox(height: 36.h),
                   _buildFormFields(context),
@@ -1076,7 +892,7 @@ class _FillFormState extends State<FillForm> {
       children: [
         CustomTextFormField(
           controller: eventControllers[0],
-          languageCode: widget.languageCode,
+          languageCode: languageCode[selectedLang]!,
           hintText: "Event name",
           maxLines: 1,
           contentPadding: EdgeInsets.symmetric(
@@ -1104,7 +920,7 @@ class _FillFormState extends State<FillForm> {
         SizedBox(height: 26.h),
         CustomTextFormField(
           controller: eventControllers[2],
-          languageCode: widget.languageCode,
+          languageCode: languageCode[selectedLang]!,
           hintText: "Event Venue",
           textInputAction: TextInputAction.newline,
           textInputType: TextInputType.multiline,
@@ -1166,7 +982,6 @@ class _FillFormState extends State<FillForm> {
           'name': eventControllers[0].text,
           'date': eventControllers[1].text,
           'details': 'Venue - ${eventControllers[2].text}',
-          'image': selectImage
         };
 
         if (isEdit) {
@@ -1176,19 +991,12 @@ class _FillFormState extends State<FillForm> {
           }
         } else {
           eventList.add(event);
-          for (int i = 0; i < 4; i++) {
-            if (imageUrl[0]['Image${i + 1}'] == event['image']) {
-              selectedImages[i] = true;
-              break;
-            }
-          }
         }
 
         // Clear the controllers after adding/updating
         eventControllers[0].clear();
         eventControllers[1].clear();
         eventControllers[2].clear();
-        selectImage = '';
       });
 
       Navigator.pop(context);
@@ -1300,10 +1108,10 @@ class _FillFormState extends State<FillForm> {
     return Expanded(
       child: CustomTextFormField(
         controller: controller,
-        languageCode: widget.languageCode,
+        languageCode: languageCode[selectedLang]!,
         hintText: hint,
         maxLines: 1,
-        contentPadding: EdgeInsets.all(12.h),
+        contentPadding: EdgeInsets.all(15.h),
         borderDecoration: TextFormFieldStyleHelper.outlineBlueGrayTL10,
         fillColor: appTheme.gray5001,
       ),
@@ -1410,6 +1218,29 @@ class _FillFormState extends State<FillForm> {
             children: [
               Container(
                 width: double.maxFinite,
+                margin: EdgeInsets.symmetric(horizontal: 36.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Card Language",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 46.h),
+                      child: Text(
+                        "Wedding Date",
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 8.h),
+              _buildLangAndDate(context),
+              SizedBox(height: 8.h),
+              Container(
+                width: double.maxFinite,
                 margin: EdgeInsets.symmetric(horizontal: 46.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1441,6 +1272,150 @@ class _FillFormState extends State<FillForm> {
   }
 
   ///End of Widget Build Create Events
+  Widget _buildLangAndDate(BuildContext context) {
+  return Container(
+    width: double.maxFinite,
+    margin: EdgeInsets.symmetric(horizontal: 36.h),
+    child: Form(
+      key: _langAndDateKey,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      DropdownButtonFormField<String>(
+                        value: selectedLang,
+                        items: languageCode.keys.map((String lang) {
+                          return DropdownMenuItem<String>(
+                            value: lang,
+                            child: Text(
+                              lang,
+                              style: CustomTextStyles.bodyMediumPrimary,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setState(() {
+                              selectedLang = newValue;
+                            });
+                          }
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey[100], // Set background color
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 12.h, horizontal: 12),
+                          hintText: "Select Language",
+                          hintStyle: CustomTextStyles.bodyMediumPrimary,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 223, 218, 218), // Green border color
+                              width: 1.0,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 223, 218, 218), // Green border color (default)
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(
+                              color: Color(
+                                  0xFF4E9459), // Green border when focused
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Required' : null,
+                        icon: SizedBox.shrink(), // Hide default dropdown icon
+                      ),
+                      Positioned(
+                        right: 10, // Adjust arrow position
+                        child: PhosphorIcon(
+                            PhosphorIcons.caretDown(),
+                            color: Color(0xFF4E9459),
+                            size: 18.h,
+                          ) // Custom arrow
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.h),
+                ],
+              ),
+            ),
+          SizedBox(width: 12.h),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextFormField(
+                  controller: weddingDateController,
+                  hintText: "12 June 2024",
+                  languageCode: 'en',
+                  maxLines: 1,
+                  readOnly: true,
+                  prefix: PhosphorIcon(
+                    PhosphorIcons.calendarHeart(),
+                    size: 24.h,
+                    color: Color.fromRGBO(153, 153, 153, 1),
+                  ),
+                  hintStyle: CustomTextStyles.bodySmallGray50002,
+                  textInputAction: TextInputAction.done,
+                  contentPadding: EdgeInsets.all(12.h),
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: const ColorScheme.light(
+                              primary: Color(0xFF4E9459), // Green theme
+                              onPrimary: Colors.white,
+                              onSurface: Colors.black,
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+                    setState(() {
+                      weddingDateController.text = pickedDate != null
+                          ? DateFormat('dd MMM yyyy').format(pickedDate)
+                          : '';
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Required';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16.h),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
   ///Widget build Name Input Row
   Widget _buildNameInputRow(BuildContext context) {
@@ -1463,10 +1438,10 @@ class _FillFormState extends State<FillForm> {
                   CustomTextFormField(
                     controller: groomControllers[0],
                     hintText: "Groom Name",
-                    languageCode: widget.languageCode,
+                    languageCode: languageCode[selectedLang]!,
                     maxLines: 1,
                     hintStyle: CustomTextStyles.bodySmallGray50002,
-                    contentPadding: EdgeInsets.all(12.h),
+                    contentPadding: EdgeInsets.all(15.h),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Required';
@@ -1487,11 +1462,11 @@ class _FillFormState extends State<FillForm> {
                   CustomTextFormField(
                     controller: brideControllers[0],
                     hintText: "Bride Name",
-                    languageCode: widget.languageCode,
+                    languageCode: languageCode[selectedLang]!,
                     maxLines: 1,
                     hintStyle: CustomTextStyles.bodySmallGray50002,
                     textInputAction: TextInputAction.done,
-                    contentPadding: EdgeInsets.all(12.h),
+                    contentPadding: EdgeInsets.all(15.h),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Required';
@@ -1671,7 +1646,7 @@ class _FillFormState extends State<FillForm> {
             width: 116.h,
             text: "Skip",
             onPressed: () {
-              if (currentPage <= 3) {
+              if (currentPage <= 2) {
                 setState(() {
                   // Mark current step as completed
                   isCompletedList[currentPage] = true;
@@ -1692,7 +1667,7 @@ class _FillFormState extends State<FillForm> {
                   // Move to next step
                   currentPage++;
                   // Expand next step
-                  if (currentPage <= 3) {
+                  if (currentPage <= 2) {
                     isExpandedList[currentPage] = true;
                     expansionControllers[currentPage].expand();
                   }
@@ -1761,14 +1736,12 @@ class _FillFormState extends State<FillForm> {
                 'brideFather': brideControllers[2].text,
                 'brideGrandmother': brideControllers[3].text,
                 'brideGrandfather': brideControllers[4].text,
-                'brideImage': brideImageString,
-                'groomImage': groomImageString,
+                'weddingDate':weddingDateController.text,
+                'language': selectedLang,
                 'events': encodedEventList, // Store encoded string for `events`
               };
 
               data = formData;
-              formData['brideImage'] = brideImage;
-              formData['groomImage'] = groomImage;
 
               saveData(formData);
             }

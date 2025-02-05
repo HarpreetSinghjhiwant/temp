@@ -74,7 +74,7 @@ class _LanguagePageState extends State<LanguagePage> {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) =>
-                            FillForm(languageCode: languageCode),
+                            FillForm(),
                       ),
                     );
                   },
