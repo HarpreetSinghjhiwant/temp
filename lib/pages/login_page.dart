@@ -436,8 +436,9 @@ class _ResponsiveBottomSheetState extends State<ResponsiveBottomSheet> {
       decoration: InputDecoration(
         labelText: '15th December 2024',
         labelStyle: TextStyle(
-          fontSize: getResponsiveTextSize(context, 0.035),
-        ),
+                    fontSize: getResponsiveTextSize(context, 0.035),
+                    color: Colors.grey.shade600,
+                  ),
         floatingLabelBehavior: FloatingLabelBehavior.never,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
