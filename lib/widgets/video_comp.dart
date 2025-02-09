@@ -1,94 +1,118 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerComponent extends StatefulWidget {
-  final String videoUrl; // Video URL
-  final String image;    // Thumbnail Image URL or Asset Path
+class SimpleVideoPlayer extends StatefulWidget {
+  final String videoUrl; // Can be a network URL or asset path
 
-  const VideoPlayerComponent({Key? key, required this.videoUrl, required this.image}) : super(key: key);
+  const SimpleVideoPlayer({Key? key, required this.videoUrl}) : super(key: key);
 
   @override
-  _VideoPlayerComponentState createState() => _VideoPlayerComponentState();
+  _SimpleVideoPlayerState createState() => _SimpleVideoPlayerState();
 }
 
-class _VideoPlayerComponentState extends State<VideoPlayerComponent> {
+class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
   late VideoPlayerController _controller;
-  bool _isPlaying = false;  // To manage play state
+  bool _isPlaying = false;
+  bool _isInitialized = false;
+  bool _hasError = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.videoUrl)
-      ..initialize().then((_) {
-        setState(() {}); // Refresh UI once video is initialized
+    _initializePlayer();
+  }
+
+  Future<void> _initializePlayer() async {
+    try {
+      // Determine whether it's a network or asset video
+      _controller = widget.videoUrl.startsWith('http')
+          ? VideoPlayerController.network(widget.videoUrl)
+          : VideoPlayerController.asset(widget.videoUrl);
+
+      // Attempt to initialize the video player
+      await _controller.initialize();
+      setState(() {
+        _isInitialized = true;
+        _hasError = false;
       });
+
+      // Listen for play, pause, and buffering events
+      _controller.addListener(() {
+        final value = _controller.value;
+        setState(() {
+          _isPlaying = value.isPlaying;
+          if (value.isBuffering) {
+            print('Video is buffering...');
+          }
+        });
+      });
+    } catch (e) {
+      print('Error initializing video: $e');
+      setState(() {
+        _isInitialized = false;
+        _hasError = true;
+      });
+    }
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Clean up the controller
+    _controller.dispose();
     super.dispose();
+  }
+
+  void _togglePlayPause() {
+    if (_controller.value.isPlaying) {
+      _controller.pause();
+    } else {
+      _controller.play();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: _controller.value.isInitialized
-          ? Stack(
-              alignment: Alignment.center,
-              children: [
-                AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: _isPlaying 
-                      ? VideoPlayer(_controller)
-                      : Image.network(
-                          widget.image,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-                if (!_isPlaying)
-                  IconButton(
-                    icon: Icon(Icons.play_circle_fill, size: 64, color: Colors.white),
-                    onPressed: () {
-                      setState(() {
-                        _isPlaying = true;
-                        _controller.play();
-                      });
-                    },
-                  ),
-                if (_isPlaying)
-                  Positioned(
-                    bottom: 10,
-                    left: 0,
-                    right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                            size: 40,
-                            color: Color(0xff605F5F),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _controller.value.isPlaying ? _controller.pause() : _controller.play();
-                            });
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.replay, size: 40),
-                          onPressed: () {
-                            _controller.seekTo(Duration.zero);
-                            _controller.play();
-                          },
-                        ),
-                      ],
+    if (_isInitialized) {
+      return AspectRatio(
+        aspectRatio: _controller.value.aspectRatio,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            VideoPlayer(_controller),
+            GestureDetector(
+              onTap: _togglePlayPause,
+              child: Container(
+                padding: EdgeInsets.all(
+                    8), // Adds space between icon and container edge
+                decoration: BoxDecoration(
+                  color: Colors.white, // White background
+                  shape: BoxShape.circle, // Circular shape
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
                     ),
-                  ),
-              ],
-            )
-          : CircularProgressIndicator(color: Color(0xff4E9459)),
-    );
+                  ],
+                ),
+                child: Icon(
+                  _isPlaying
+                      ? Icons.pause
+                      : Icons
+                          .play_arrow, // Simple icons without built-in background
+                  size: 48, // Adjust size as needed
+                  color: Colors.black, // Black inner icon
+                ),
+              ),
+
+
+            ),
+          ],
+        ),
+      );
+    } else if (_hasError || _controller.value.hasError) {
+      return Center(child: Text('Error loading video', style: TextStyle(color: Colors.red, fontSize: 16)));
+    } else {
+      return Center(child: CircularProgressIndicator());
+    }
   }
 }

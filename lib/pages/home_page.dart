@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:temp/core/app_export.dart';
 import 'package:temp/widgets/video_comp.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:temp/widgets/youtube_video_player.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,84 +17,84 @@ class _HomePageState extends State<HomePage> {
     {
       "title":"Simran weds Shikhar",
       "description":"Our love story is just like a modern-day fairytale! 🌍❤️ From the snow-covered streets of Canada to the vibrant lanes of India.",
-      "image":"assets/Element for UI/Customise order 1/WhatsApp Image 2025-02-05 at 5.36.15 PM.jpeg",
-      "video":"assets/Element for UI/Customise order 1/DDLJ.mp4",
+      "image":"assets/Element_for_UI/Customise_order_1/image.jpeg",
+      "video":"assets/Element_for_UI/Customise_order_1/DDLJ.mp4",
     },
     {
       "title":"Siddharth weds Maithili",
       "description":"Our love story is just like a modern-day fairytale! 🌍❤️ From the snow-covered streets of Canada to the vibrant lanes of India.",
-      "image":"assets/Element for UI/Customise order2/Screenshot 2025-02-06 162014.png",
-      "video":"assets/Element for UI/Customise order2/Siddharth weds Maithili1.mp4",
+      "image":"assets/Element_for_UI/Customise_order2/image.png",
+      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
     {
       "title":"Kanchan Priya weds Drew",
       "description":"Our love story began in the heart of Bangalore, where fate brought a USA groom and an Indian bride together in the most magical way. 🇺🇸❤️🇮🇳 Amidst the vibrant culture, bustling streets, and unforgettable moments, we found each other.",
-      "image":"assets/Element for UI/Customise order3/Untitled design (1).png",
-      "video":"assets/Element for UI/Customise order3/Kanchan Priya weds Drew1.mp4",
+      "image":"assets/Element_for_UI/Customise_order3/image.png",
+      "video":"assets/Element_for_UI/Customise_order3/Kanchan_Priya_weds_Drew1.mp4",
     },
   ];
 
   final List<Map<String,String>> pdfInvites = [
     {
       "title":"Title 1",
-      "image":"assets/Element for UI/PDF Invites/1.png",
+      "image":"assets/Element_for UI/PDF Invites/1.png",
     },
     {
       "title":"Title 2",
-      "image":"assets/Element for UI/PDF Invites/2.png",
+      "image":"assets/Element_for UI/PDF Invites/2.png",
     },
     {
       "title":"Title 3",
-      "image":"assets/Element for UI/PDF Invites/3.png",
+      "image":"assets/Element_for UI/PDF Invites/3.png",
     },
     {
       "title":"Title 4",
-      "image":"assets/Element for UI/PDF Invites/4.png",
+      "image":"assets/Element_for UI/PDF Invites/4.png",
     },
     {
       "title":"Title 5",
-      "image":"assets/Element for UI/PDF Invites/5.png",
+      "image":"assets/Element_for UI/PDF Invites/5.png",
     },
     {
       "title":"Title 6",
-      "image":"assets/Element for UI/PDF Invites/6.png",
+      "image":"assets/Element_for_UI/PDF Invites/6.png",
     },
   ];
 
   final List<Map<String,String>> videoUrls = [
     {
       "image":"assets/images/img_2024_08_13_15_20_26_3191.png",
-      "video":"assets/Element for UI/Customise order2/Siddharth weds Maithili1.mp4",
+      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
     {
       "image":"assets/images/img_2024_08_13_15_20_26_3191.png",
-      "video":"assets/Element for UI/Customise order2/Siddharth weds Maithili1.mp4",
+      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
     {
       "image":"assets/images/img_2024_08_13_15_20_26_3191.png",
-      "video":"assets/Element for UI/Customise order2/Siddharth weds Maithili1.mp4",
+      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
   ];
 
   final List<Map<String,String>> reviewVideoUrls = [
     {
-      "image":"assets/Element for UI/Review/gigapixel-2.png",
+      "image":"assets/Element_for_UI/Review/Review.png",
       "video":"https://www.youtube.com/shorts/pt8bFP2GoOs",
     },
     {
-      "image":"assets/Element for UI/Review/gigapixel-3.png",
+      "image":"assets/Element_for_UI/Review/Shreya&Ron.png",
       "video":"https://www.youtube.com/shorts/1T_JRakNa-Y",
     },
     {
-      "image":"assets/Element for UI/Review/gigapixel-4.png",
+      "image":"assets/Element_for_UI/Review/gigapixel-2.png",
       "video":"https://www.youtube.com/shorts/I-EUvSw5oMc",
     },
     {
-      "image":"assets/Element for UI/Review/Review.png",
+      "image":"assets/Element_for_UI/Review/gigapixel-3.png",
       "video":"https://www.youtube.com/shorts/jCH3Do8DhXw",
     },
     {
-      "image":"assets/Element for UI/Review/Shreya & Ron.png",
+      "image":"assets/Element_for_UI/Review/gigapixel-4.png",
       "video":"https://www.youtube.com/shorts/kePFAl-rlE8",
     },
   ];
@@ -151,279 +151,154 @@ class _HomePageState extends State<HomePage> {
 
 
   Widget _buildFooterSection() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                child: Text(
-                  'Our Founder',
-                  style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SingleChildScrollView(  // To handle overflow on smaller screens
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              'Our Founder',
+              style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              'Abhinav Goyal',
+              style: TextStyle(color: Color(0xff6D6D6D), fontSize: 32),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              '( Alumni of IIT Hyderabad )',
+              style: TextStyle(color: Color(0xff6D6D6D), fontSize: 22),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+              'Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
+              style: TextStyle(color: Color(0xff6D6D6D), fontSize: 16),
+            ),
+          ),
+          
+          // Social Media Icons and Image Section
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Social Icons
+              Column(
+                children: [
+                  _buildSocialIcon(PhosphorIcons.linkedinLogo()),
+                  SizedBox(height: 20),
+                  _buildSocialIcon(PhosphorIcons.instagramLogo()),
+                ],
+              ),
+              
+              // Founder Image
+              Center(
+                child: Image.asset(
+                  ImageConstant.Image,
+                  width: 200,   // Adjusted width to prevent overflow
+                  height: 180,  // Adjusted height
+                  fit: BoxFit.contain,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                child: Text(
-                  'Abhinav Goyal',
-                  style: TextStyle(color: Color(0xff6D6D6D), fontSize: 32),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                child: Text(
-                  '( Alumni of IIT Hyderabad )',
-                  style: TextStyle(color: Color(0xff6D6D6D), fontSize: 22),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                child: Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been tLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been t',
-                  style: TextStyle(color: Color(0xff6D6D6D), fontSize: 16),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            ],
+          ),
+          
+          Divider(color: Colors.grey, thickness: 1),  // Divider instead of empty container
+          
+          // Contact and Social Media Section
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        width: 48,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Color(0xff4E9459), width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            PhosphorIcons.linkedinLogo(),
-                            color: Color(0xff4E9459),
-                            size: 22,
-                          ),
-                        )),
-                    SizedBox(height: 30),
-                    Container(
-                        width: 48,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Color(0xff4E9459), width: 2),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            PhosphorIcons.instagramLogo(),
-                            color: Color(0xff4E9459),
-                            size: 22,
-                          ),
-                        )),
-                  ],
+                // Contact Info
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Contact', style: TextStyle(color: Color(0xff6D6D6D), fontSize: 22)),
+                      SizedBox(height: 12),
+                      _buildContactRow(PhosphorIcons.phoneCall(), '+91-8005993442'),
+                      SizedBox(height: 12),
+                      _buildContactRow(PhosphorIcons.envelopeSimple(), 'support@celebrare.in'),
+                    ],
+                  ),
                 ),
-                Center(
-                  child: Image.asset(
-                    ImageConstant.Image,
-                    width: 285,
-                    height: 244,
+                
+                // Connect With Us
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Connect With Us on', style: TextStyle(color: Color(0xff6D6D6D), fontSize: 18)),
+                      SizedBox(height: 12),
+                      Row(
+                        children: [
+                          _buildSocialLogo(ImageConstant.pinterestLogo),
+                          _buildSocialLogo(ImageConstant.instagramLogo),
+                          _buildSocialLogo(ImageConstant.facebookLogo),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            Container(
-              width: double.infinity,
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Contact',
-                        style: TextStyle(
-                            color: Color(0xff6D6D6D),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w200),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Row(
-                        children: [
-                          Icon(PhosphorIcons.phoneCall(),
-                              size: 32, color: Color(0xff6D6D6D)),
-                          SizedBox(
-                            width: 6,
-                          ),
-                          Text(
-                            '+91-8005993442',
-                            style: TextStyle(
-                                color: Color(0xff6D6D6D),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w100),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Row(
-                        children: [
-                          Icon(PhosphorIcons.envelopeSimple(),
-                              size: 32, color: Color(0xff6D6D6D)),
-                          SizedBox(
-                            width: 6,
-                          ),
-                          Text(
-                            'support@celebrare.in',
-                            style: TextStyle(
-                                color: Color(0xff6D6D6D),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w100),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Connect With Us on',
-                        style: TextStyle(
-                            color: Color(0xff6D6D6D),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w200),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            ImageConstant.pinterestLogo,
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Image.asset(
-                            ImageConstant.instagramLogo,
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Image.asset(
-                            ImageConstant.facebookLogo,
-                            width: 24,
-                            height: 24,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 58,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-
-Widget _buildVideoReviewsCard(String image, String videoUrl) {
-  String videoId = YoutubePlayer.convertUrlToId(videoUrl) ?? '';
-
-  YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: videoId,
-    flags: YoutubePlayerFlags(
-      autoPlay: false,
-      mute: false,
-    ),
-  );
-
-  return Padding(
-    padding: const EdgeInsets.all(24.0),
-    child: Container(
-      width: 247,
-      height: 398,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xff605F5F),
-            spreadRadius: 4,
-            blurRadius: 2,
-            offset: Offset(0, 3),
           ),
         ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.red,
-            ),
-            if (!_controller.value.isPlaying)
-              GestureDetector(
-                onTap: () {
-                  _controller.play();
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Image.network(
-                      image,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Icon(
-                      Icons.play_circle_fill,
-                      size: 64,
-                      color: Colors.white70,
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
       ),
     ),
   );
 }
+
+// Helper widget for Social Icons
+Widget _buildSocialIcon(IconData iconData) {
+  return Container(
+    width: 48,
+    height: 50,
+    decoration: BoxDecoration(
+      border: Border.all(color: Color(0xff4E9459), width: 2),
+      borderRadius: BorderRadius.circular(50),
+    ),
+    child: IconButton(
+      onPressed: () {},
+      icon: Icon(iconData, color: Color(0xff4E9459), size: 22),
+    ),
+  );
+}
+
+// Helper widget for Contact Rows
+Widget _buildContactRow(IconData iconData, String info) {
+  return Row(
+    children: [
+      Icon(iconData, size: 32, color: Color(0xff6D6D6D)),
+      SizedBox(width: 6),
+      Flexible(
+        child: Text(info, style: TextStyle(color: Color(0xff6D6D6D), fontSize: 16)),
+      ),
+    ],
+  );
+}
+
+// Helper widget for Social Logos
+Widget _buildSocialLogo(String assetPath) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 12),
+    child: Image.asset(assetPath, width: 24, height: 24),
+  );
+}
+
+
 
 
   Widget _buildVideoCard(String image,String videoUrl) {
@@ -435,10 +310,10 @@ Widget _buildVideoReviewsCard(String image, String videoUrl) {
           width: 277.95,
           height: 466.81,
           decoration: BoxDecoration(
-              // border: Border.all(color: Color(0xff4E9459), width: 2),
-              // borderRadius: BorderRadius.circular(20)
+              border: Border.all(color: Color(0xff6D6D6D), width: 2),
+              borderRadius: BorderRadius.circular(20)
               ),
-          child: VideoPlayerComponent(videoUrl: videoUrl,image:image),
+          child: ClipRRect(borderRadius: BorderRadius.circular(20),child: SimpleVideoPlayer(videoUrl: videoUrl)),
         ),
       ),
     );
@@ -503,21 +378,16 @@ Widget _buildVideoReviewsCard(String image, String videoUrl) {
           ),
           child: Image.asset(
             image,
-            width: 167,
-            height: 167,
+            width: 150,
+            height: 150,
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: Container(
+Container(
             child: Text(
               title,
               style: TextStyle(color: Color(0xff737373), fontSize: 15),
             ),
           ),
-        ),
       ],
     );
   }
@@ -655,12 +525,12 @@ Widget _buildVideoReviewsCard(String image, String videoUrl) {
                 GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 2.0, // Adjusted horizontal spacing
-                    mainAxisSpacing: 22.0,
+                    crossAxisSpacing: 0.01, // Adjusted horizontal spacing
+                    mainAxisSpacing: 4.0,
                   ),
                   itemBuilder: (context, index) {
                     return _buildPdfInvites(
-                        'assets/Element for UI/image.png', 'Title $index');
+                        'assets/Element_for_UI/image.png', 'Title $index');
                   },
                   itemCount: 6,
                   shrinkWrap: true,
@@ -698,7 +568,10 @@ Widget _buildVideoReviewsCard(String image, String videoUrl) {
                           Axis.horizontal, // Enable horizontal scrolling
                       itemCount: videoUrls.length,
                       itemBuilder: (context, index) {
-                        return _buildVideoCard(videoUrls[index]["image"]!,videoUrls[index]["video"]!);
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: _buildVideoCard(videoUrls[index]["image"]!,videoUrls[index]["video"]!),
+                        );
                       },
                     ),
                   ),
@@ -735,7 +608,7 @@ Widget _buildVideoReviewsCard(String image, String videoUrl) {
                           Axis.horizontal, // Enable horizontal scrolling
                       itemCount: reviewVideoUrls.length,
                       itemBuilder: (context, index) {
-                        return _buildVideoReviewsCard(reviewVideoUrls[index]["image"]!,reviewVideoUrls[index]["video"]!);
+                        return VideoReviewCard(image:reviewVideoUrls[index]["image"]!,videoUrl:reviewVideoUrls[index]["video"]!);
                       },
                     ),
                   ),

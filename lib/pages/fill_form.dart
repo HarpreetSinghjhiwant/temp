@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:temp/core/app_export.dart';
@@ -13,8 +12,6 @@ import 'package:temp/widgets/custom_outlined_button.dart';
 import 'package:temp/widgets/custom_text_form_field.dart';
 import 'dart:io';
 import 'dart:math';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 // End of Import Statements
 
@@ -75,9 +72,6 @@ class _FillFormState extends State<FillForm> {
 
   FocusNode dateFocusNode = FocusNode(); // Focus node for date input field
 
-  final AudioPlayer _audioPlayer =
-      AudioPlayer(); // Audio player instance for playing music
-
   bool isPlaying = false; // Track whether audio is currently playing
 
   int? currentlyPlayingIndex;
@@ -112,8 +106,6 @@ class _FillFormState extends State<FillForm> {
 //// Dispose Method
   @override
   void dispose() {
-    _audioPlayer.stop();
-    _audioPlayer.dispose();
     _scrollController.dispose();
     super.dispose();
   }

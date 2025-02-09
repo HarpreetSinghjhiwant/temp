@@ -35,9 +35,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   intl: ^0.19.0
-  audioplayers: ^6.1.0
-  file_picker: ^8.1.7
-  image_picker: ^1.1.2
   google_fonts: ^6.2.1
   phosphor_flutter: ^2.1.0
   hive: ^2.2.3
@@ -47,7 +44,6 @@ dependencies:
   http: ^1.3.0
   intl_phone_field: ^3.2.0
   video_player: ^2.9.2
-  youtube_player_flutter: ^9.1.1
   youtube_player_iframe: ^5.2.1
 
 dev_dependencies:
@@ -76,7 +72,22 @@ flutter:
   assets:
     - assets/ 
     - assets/images/
-    - assets/Element for UI/
+    - assets/Element_for_UI/
+    - assets/Element_for_UI/Customise_order_1/DDLJ.mp4
+    - assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4
+    - assets/Element_for_UI/Customise_order3/Kanchan_Priya_weds_Drew1.mp4
+    - assets/Element_for_UI/Customise_order_1/image.jpeg
+    - assets/Element_for_UI/Customise_order2/image.png
+    - assets/Element_for_UI/Customise_order3/image.png
+    - assets/Element_for_UI/Customise_order_1/
+    - assets/Element_for_UI/Customise_order2/
+    - assets/Element_for_UI/Customise_order3/
+    - assets/Element_for_UI/Review/
+    - assets/Element_for_UI/Review/Shreya&Ron.png
+    - assets/Element_for_UI/Review/gigapixel-2.png
+    - assets/Element_for_UI/Review/gigapixel-3.png
+    - assets/Element_for_UI/Review/gigapixel-4.png
+    - assets/Element_for_UI/Review/Review.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
