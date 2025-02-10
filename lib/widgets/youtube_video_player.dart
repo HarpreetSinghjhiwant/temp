@@ -55,7 +55,7 @@ class _VideoReviewCardState extends State<VideoReviewCard> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey[500]!,
+              color: Colors.grey[350]!,
               spreadRadius: 4,
               blurRadius: 2
             )

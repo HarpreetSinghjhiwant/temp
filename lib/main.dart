@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:temp/pages/category.dart';
 import 'package:temp/pages/fill_form.dart';
 import 'package:temp/pages/home_page.dart';
 import 'package:temp/pages/language_page.dart';
@@ -22,12 +23,13 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-          initialRoute: '/home',
+          initialRoute: '/category',
           debugShowCheckedModeBanner: false,
           routes:{
             '/': (context) => FillForm(),
             '/login':(context) => LoginPage(),
             '/home':(context)=>HomePage(),
+            '/category':(context)=>CategoryPage(),
           },
           builder: (context, child) {
             return MediaQuery(

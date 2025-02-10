@@ -4,6 +4,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:temp/core/app_export.dart';
 import 'package:temp/widgets/video_comp.dart';
 import 'package:temp/widgets/youtube_video_player.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,27 +39,27 @@ class _HomePageState extends State<HomePage> {
   final List<Map<String,String>> pdfInvites = [
     {
       "title":"Title 1",
-      "image":"assets/Element_for UI/PDF Invites/1.png",
+      "image":"assets/Element_for_UI/image.png",
     },
     {
       "title":"Title 2",
-      "image":"assets/Element_for UI/PDF Invites/2.png",
+      "image":"assets/Element_for_UI/image.png",
     },
     {
       "title":"Title 3",
-      "image":"assets/Element_for UI/PDF Invites/3.png",
+      "image":"assets/Element_for_UI/image.png",
     },
     {
       "title":"Title 4",
-      "image":"assets/Element_for UI/PDF Invites/4.png",
+      "image":"assets/Element_for_UI/image.png",
     },
     {
       "title":"Title 5",
-      "image":"assets/Element_for UI/PDF Invites/5.png",
+      "image":"assets/Element_for_UI/image.png",
     },
     {
       "title":"Title 6",
-      "image":"assets/Element_for_UI/PDF Invites/6.png",
+      "image":"assets/Element_for_UI/image.png",
     },
   ];
 
@@ -125,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Text(
                     title,
-                    style: TextStyle(color: Color(0xff737373), fontSize: 17, fontWeight: FontWeight.bold),
+                    style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff737373), fontSize: 17, fontWeight: FontWeight.bold)),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -137,7 +139,7 @@ class _HomePageState extends State<HomePage> {
             child: Text(
               description,
               maxLines: 2,
-              style: TextStyle(color: Color(0xff737373), fontSize: 15,),
+              style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff737373), fontSize: 15,)),
             ),
           ),
           SizedBox(height: 12),
@@ -158,32 +160,31 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               'Our Founder',
-              style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+              style:GoogleFonts.poppins(textStyle:  TextStyle(color: Color(0xffD9D9D9), fontSize: 45)),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left:18.0,bottom: 4),
             child: Text(
               'Abhinav Goyal',
-              style: TextStyle(color: Color(0xff6D6D6D), fontSize: 32),
+              style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 32)),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left:16.0,bottom: 12),
             child: Text(
               '( Alumni of IIT Hyderabad )',
-              style: TextStyle(color: Color(0xff6D6D6D), fontSize: 22),
+              style: GoogleFonts.manrope(textStyle:TextStyle(color: Color(0xff6D6D6D), fontSize: 22)),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left:16.0,top: 14),
             child: Text(
-              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-              'Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
-              style: TextStyle(color: Color(0xff6D6D6D), fontSize: 16),
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been tLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been t',
+              style:GoogleFonts.poppins(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 16)),
             ),
           ),
           
@@ -205,19 +206,18 @@ class _HomePageState extends State<HomePage> {
               Center(
                 child: Image.asset(
                   ImageConstant.Image,
-                  width: 200,   // Adjusted width to prevent overflow
-                  height: 180,  // Adjusted height
+                  width: 285,   // Adjusted width to prevent overflow
+                  height: 244,  // Adjusted height
                   fit: BoxFit.contain,
                 ),
               ),
             ],
           ),
-          
-          Divider(color: Colors.grey, thickness: 1),  // Divider instead of empty container
+          SizedBox(height: 12,),
           
           // Contact and Social Media Section
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(18.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -226,7 +226,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Contact', style: TextStyle(color: Color(0xff6D6D6D), fontSize: 22)),
+                      Padding(
+                        padding: const EdgeInsets.only(left:8.0),
+                        child: Text('Contact', style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 14, fontWeight: FontWeight.bold))),
+                      ),
                       SizedBox(height: 12),
                       _buildContactRow(PhosphorIcons.phoneCall(), '+91-8005993442'),
                       SizedBox(height: 12),
@@ -237,19 +240,22 @@ class _HomePageState extends State<HomePage> {
                 
                 // Connect With Us
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Connect With Us on', style: TextStyle(color: Color(0xff6D6D6D), fontSize: 18)),
-                      SizedBox(height: 12),
-                      Row(
-                        children: [
-                          _buildSocialLogo(ImageConstant.pinterestLogo),
-                          _buildSocialLogo(ImageConstant.instagramLogo),
-                          _buildSocialLogo(ImageConstant.facebookLogo),
-                        ],
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Connect With Us on', style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 14,fontWeight: FontWeight.bold))),
+                        SizedBox(height: 12),
+                        Row(
+                          children: [
+                            _buildSocialLogo(ImageConstant.pinterestLogo),
+                            _buildSocialLogo(ImageConstant.instagramLogo),
+                            _buildSocialLogo(ImageConstant.facebookLogo),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -281,10 +287,10 @@ Widget _buildSocialIcon(IconData iconData) {
 Widget _buildContactRow(IconData iconData, String info) {
   return Row(
     children: [
-      Icon(iconData, size: 32, color: Color(0xff6D6D6D)),
+      Icon(iconData, size: 24, color: Color(0xff6D6D6D)),
       SizedBox(width: 6),
       Flexible(
-        child: Text(info, style: TextStyle(color: Color(0xff6D6D6D), fontSize: 16)),
+        child: Text(info, style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 14))),
       ),
     ],
   );
@@ -310,7 +316,7 @@ Widget _buildSocialLogo(String assetPath) {
           width: 277.95,
           height: 466.81,
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0xff6D6D6D), width: 2),
+              border: Border.all(color: Color(0xff6D6D6D), width: 1),
               borderRadius: BorderRadius.circular(20)
               ),
           child: ClipRRect(borderRadius: BorderRadius.circular(20),child: SimpleVideoPlayer(videoUrl: videoUrl)),
@@ -338,11 +344,11 @@ Widget _buildSocialLogo(String assetPath) {
             ),
             // Text Widget
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
                   title,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style:GoogleFonts.poppins(textStyle: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
               ),
             ),
@@ -368,29 +374,40 @@ Widget _buildSocialLogo(String assetPath) {
     );
   }
 
-  Widget _buildPdfInvites(String image, String title) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Color(0xff4E9459),
-          ),
+ Widget _buildPdfInvites(String image, String title) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,  // Center contents in the column
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Color(0xff4E9459),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
           child: Image.asset(
             image,
-            width: 150,
-            height: 150,
+            fit: BoxFit.cover,
+            width: 167,  // Make the image fill the container
+            height: 167,
+              // Adjust height as needed
           ),
         ),
-Container(
-            child: Text(
-              title,
-              style: TextStyle(color: Color(0xff737373), fontSize: 15),
-            ),
-          ),
-      ],
-    );
-  }
+      ),
+      SizedBox(height: 12),
+      Text(
+        title,
+        style: GoogleFonts.roboto(
+          textStyle: TextStyle(color: Color(0xff737373), fontSize: 15),
+        ),
+        textAlign: TextAlign.center,  // Center the text
+        overflow: TextOverflow.ellipsis,
+      ),
+    ],
+  );
+}
+
+
 
   Widget _buildMenu() {
     return Container(
@@ -398,27 +415,27 @@ Container(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
+                border: Border.all(color: Color(0xffE5E5E5)),
                 shape: BoxShape.circle,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.menu),
+                padding: const EdgeInsets.all(10.0),
+                child: Icon(Icons.menu,size:26),
               ),
             ),
           ),
           Center(
             child: Image.asset(
               ImageConstant.celebrareImage,
-              width: 144,
-              height: 39,
+              width: 111,
+              height: 25.55,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: CircleAvatar(
               backgroundColor: Colors.green,
               radius: 20,
@@ -433,6 +450,7 @@ Container(
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -482,21 +500,21 @@ Container(
                       Center(
                         child: Text(
                           'For Special',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(textStyle:TextStyle(
                               fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 134, 210, 145),
-                              letterSpacing: 3),
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 124, 218, 138),
+                              letterSpacing: 3)),
                         ),
                       ),
                       Center(
                         child: Text(
                           'Moments',
-                          style: TextStyle(
+                          style:GoogleFonts.poppins(textStyle: TextStyle(
                               fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 134, 210, 145),
-                              letterSpacing: 3),
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 124, 218, 138),
+                              letterSpacing: 3)),
                         ),
                       ),
                       Image.asset(
@@ -515,53 +533,60 @@ Container(
                   child: Container(
                     child: Text(
                       'PDF Invites',
-                      style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+                      style:GoogleFonts.poppins(textStyle: TextStyle(color: Color(0xffD9D9D9), fontSize: 45,fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 0.01, // Adjusted horizontal spacing
-                    mainAxisSpacing: 4.0,
-                  ),
-                  itemBuilder: (context, index) {
-                    return _buildPdfInvites(
-                        'assets/Element_for_UI/image.png', 'Title $index');
-                  },
-                  itemCount: 6,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                ),
+                Padding(
+  padding: const EdgeInsets.all(12.0),
+  child: Align(
+    alignment: Alignment.center,
+    child: GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 2,  // Added spacing for better visuals
+        mainAxisSpacing: 2,
+        childAspectRatio: 0.85,  // Adjust aspect ratio to control item sizing
+      ),
+      itemBuilder: (context, index) {
+        return _buildPdfInvites(
+          pdfInvites[index]['image']!,
+          pdfInvites[index]['title']!,
+        );
+      },
+      itemCount: 6,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+    ),
+  ),
+),
+
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Container(
                   alignment: Alignment.center,
                   child: _buildButton('Create Now', () {}),
                 ),
                 SizedBox(
-                  height: 70,
+                  height: 100,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Container(
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:22.0),
                     child: Text(
                       'Video Invites',
-                      style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+                      style:GoogleFonts.poppins(textStyle: TextStyle(color: Color(0xffD9D9D9), fontSize: 45,fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: SizedBox(
-                    height: 500, // Adjust height based on video card size
+                  height: 550, // Adjust height based on video card size
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection:
@@ -584,24 +609,22 @@ Container(
                   child: _buildButton('Explore All', () {}),
                 ),
                 SizedBox(
-                  height: 70,
+                  height: 100,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Container(
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:24.0),
                     child: Text(
                       'Reviews',
-                      style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+                      style:
+                      GoogleFonts.poppins(textStyle: TextStyle(color: Color(0xffD9D9D9), fontSize: 45,fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: SizedBox(
-                    height: 500, // Adjust height based on video card size
+                  height: 480, // Adjust height based on video card size
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:12.0),
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection:
@@ -614,24 +637,21 @@ Container(
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 100,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.only(left:22.0),
                   child: Container(
                     child: Text(
                       'Customized\ninvites',
-                      style: TextStyle(color: Color(0xffD9D9D9), fontSize: 45),
+                      style:GoogleFonts.poppins(textStyle: TextStyle(color: Color(0xffD9D9D9), fontSize: 45,fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: SizedBox(
-                    height: 662, // Adjust height based on video card size
+                  height: 662, // Adjust height based on video card size
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:12),
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection:
@@ -642,6 +662,16 @@ Container(
                       },
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: _buildButton('Contact Us', () {}),
+                ),
+                SizedBox(
+                  height: 100,
                 ),
                 _buildFooterSection(),
                 SizedBox(height: 60,),
