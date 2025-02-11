@@ -348,24 +348,28 @@ Widget _buildSocialLogo(String assetPath) {
               child: Center(
                 child: Text(
                   title,
-                  style:GoogleFonts.poppins(textStyle: TextStyle(color: Colors.white, fontSize: 18)),
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
               ),
             ),
 
             // Icon inside a circular container
-            Container(
-              width: 54,
-              height: 54,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                border: Border.all(color: Color(0xff4E9459), width: 2),
-              ),
-              child: Icon(
-                PhosphorIcons.arrowUpRight(),
-                size: 24.0,
-                color: Color(0xff4E9459),
+            Padding(
+              padding: const EdgeInsets.all(1.5),
+              child: Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Color(0xff4E9459), width: 2),
+                ),
+                child: Icon(
+                  PhosphorIcons.arrowDown(),
+                  size: 24.0,
+                  color: Color(0xff4E9459),
+                ),
               ),
             ),
           ],

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-          initialRoute: '/category',
+          initialRoute: '/home',
           debugShowCheckedModeBanner: false,
           routes:{
             '/': (context) => FillForm(),

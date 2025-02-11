@@ -12,6 +12,8 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+
+  String type = 'South Indian';
   final List<Map<String, String>> pdfInvites = [
     {
       "title": "Title 1",
@@ -115,34 +117,31 @@ class _CategoryPageState extends State<CategoryPage> {
 
   Widget _buildMenuSection() {
     return Padding(
-      padding: const EdgeInsets.all(18.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center, // Changed to center
+          Stack(
+            alignment: Alignment.center,
             children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {}, 
-                      icon: Icon(CupertinoIcons.back, size: 30,color:Color(0xff9D9D9D),)
-                    ),
-                  ],
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(CupertinoIcons.back,
+                      size: 30, color: Color(0xff9D9D9D)),
                 ),
               ),
               Text(
                 'PDF Invites',
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
-                    color: Color(0xff969696), 
+                    color: Color(0xff969696),
                     fontSize: 20,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              Expanded(child: SizedBox()), // Add this to balance the layout
             ],
           ),
           SizedBox(height: 12),
@@ -156,7 +155,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: DropdownButton<String>(
-                  value: 'South Indian', // Set initial value
+                  value: type, // Set initial value
                   icon: Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: Icon(
@@ -185,6 +184,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   onChanged: (String? newValue) {
                   setState(() {
                     // Handle value change
+                    type = newValue!;
                   });
                   },
                 ),
@@ -193,10 +193,11 @@ class _CategoryPageState extends State<CategoryPage> {
                 Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xffE2E2E2)),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 12),
                   child: Row(
                     children: [
                     Text(
@@ -206,7 +207,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       ),
                     ),
                     SizedBox(width: 6),
-                    Icon(PhosphorIcons.pencilSimpleLine(), size: 24, color: Color(0xff6D6D6D)),
+                    Icon(PhosphorIcons.pencilSimpleLine(), size: 24, color: Color(0xff4E9459)),
                     ],
                   ),
                 ),
@@ -236,8 +237,8 @@ class _CategoryPageState extends State<CategoryPage> {
                   child: Text('Contact',
                       style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                              color: Color(0xff6D6D6D),
-                              fontSize: 14,
+                              color: Color(0xff6F6F6F),
+                              fontSize: 16,
                               fontWeight: FontWeight.bold))),
                 ),
                 SizedBox(height: 12),
@@ -252,14 +253,14 @@ class _CategoryPageState extends State<CategoryPage> {
           // Connect With Us
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Connect With Us on',
                       style: GoogleFonts.roboto(
                           textStyle: TextStyle(
-                              color: Color(0xff6D6D6D),
+                              color: Color(0xff6F6F6F),
                               fontSize: 14,
                               fontWeight: FontWeight.bold))),
                   SizedBox(height: 12),
@@ -283,13 +284,13 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget _buildContactRow(IconData iconData, String info) {
     return Row(
       children: [
-        Icon(iconData, size: 24, color: Color(0xff6D6D6D)),
+        Icon(iconData, size: 24, color: Color(0xff6F6F6F)),
         SizedBox(width: 6),
         Flexible(
           child: Text(info,
               style: GoogleFonts.roboto(
                   textStyle:
-                      TextStyle(color: Color(0xff6D6D6D), fontSize: 14))),
+                      TextStyle(color: Color(0xff6F6F6F), fontSize: 14))),
         ),
       ],
     );
@@ -333,18 +334,21 @@ class _CategoryPageState extends State<CategoryPage> {
             ),
 
             // Icon inside a circular container
-            Container(
-              width: 54,
-              height: 54,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                border: Border.all(color: Color(0xff4E9459), width: 2),
-              ),
-              child: Icon(
-                PhosphorIcons.arrowDown(),
-                size: 24.0,
-                color: Color(0xff4E9459),
+            Padding(
+              padding: const EdgeInsets.all(1.5),
+              child: Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Color(0xff4E9459), width: 2),
+                ),
+                child: Icon(
+                  PhosphorIcons.arrowDown(),
+                  size: 24.0,
+                  color: Color(0xff4E9459),
+                ),
               ),
             ),
           ],
@@ -431,6 +435,7 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
               SizedBox(height: 12),
               _buildContact(),
+              SizedBox(height:16)
             ],
           ),
         ),
