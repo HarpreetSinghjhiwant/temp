@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:temp/core/app_export.dart';
 import 'package:temp/widgets/home_page/video_comp.dart';
@@ -278,12 +277,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           // Main Image (on top)
-                          Image.asset(
-                            ImageConstant.Image,
-                            width: 284,
-                            height: 244,
-                            fit: BoxFit.contain
-                          ),
+                          Image.asset(ImageConstant.Image,
+                              width: 284, height: 244, fit: BoxFit.contain),
                         ],
                       ),
                     ),

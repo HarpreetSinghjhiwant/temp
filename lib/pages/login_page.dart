@@ -14,18 +14,20 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _phoneController = TextEditingController();
-  final List<TextEditingController> _otpControllers = List.generate(4, (index) => TextEditingController());
+  final List<TextEditingController> _otpControllers =
+      List.generate(4, (index) => TextEditingController());
   final TextEditingController _groomNameController = TextEditingController();
   final TextEditingController _brideNameController = TextEditingController();
   final TextEditingController _weddingDateController = TextEditingController();
-  
+
   bool _isOtpSent = false;
   bool _isCorrectOtp = false;
   bool _isLoading = false;
   String? _phoneError;
   String? _otpError;
 
-  final List<FocusNode> _otpFocusNodes = List.generate(4, (index) => FocusNode());
+  final List<FocusNode> _otpFocusNodes =
+      List.generate(4, (index) => FocusNode());
 
   @override
   void dispose() {
@@ -63,13 +65,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                if(!_isCorrectOtp)
-                Positioned(
-                  top: 40, // Distance from the top of the screen
-                  right: 30, // Distance from the right side of the screen
-                  child:
-                      _buildSkipButton(), // Skip button positioned on top-right
-                ),
+                if (!_isCorrectOtp)
+                  Positioned(
+                    top: 40, // Distance from the top of the screen
+                    right: 30, // Distance from the right side of the screen
+                    child:
+                        _buildSkipButton(), // Skip button positioned on top-right
+                  ),
               ],
             ),
 
@@ -97,26 +99,28 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    !_isCorrectOtp ? "India's #1 Digital\nInvitation App" : "You are just one step away!",
-                    textAlign:!_isCorrectOtp ? TextAlign.center:TextAlign.start,
+                    !_isCorrectOtp
+                        ? "India's #1 Digital\nInvitation App"
+                        : "You are just one step away!",
+                    textAlign:
+                        !_isCorrectOtp ? TextAlign.center : TextAlign.start,
                     style: GoogleFonts.poppins(
-                      fontSize:!_isCorrectOtp ? 24:22,
-                      fontWeight: !_isCorrectOtp ? FontWeight.w600 : FontWeight.normal,
+                      fontSize: !_isCorrectOtp ? 24 : 22,
+                      fontWeight:
+                          !_isCorrectOtp ? FontWeight.w600 : FontWeight.normal,
                       height: 1.2,
-                      color:!_isCorrectOtp ? const Color(0xff636363):Color(0xff747474),
+                      color: !_isCorrectOtp
+                          ? const Color(0xff636363)
+                          : Color(0xff747474),
                     ),
                   ),
                   SizedBox(height: screenSize.height * 0.06),
-
                   if (!_isOtpSent) _buildPhoneInput(context),
                   if (_isOtpSent && !_isCorrectOtp) _buildOtpInput(context),
                   if (_isCorrectOtp) _buildCoupleDetailsForm(context),
-                  if(_isOtpSent)
-                    SizedBox(height: screenSize.height * 0.05),
-                  if(!_isOtpSent)
-                  SizedBox(height: screenSize.height * 0.03),
+                  if (_isOtpSent) SizedBox(height: screenSize.height * 0.05),
+                  if (!_isOtpSent) SizedBox(height: screenSize.height * 0.03),
                   _buildContinueButton(context),
-
                   if (!_isOtpSent) ...[
                     SizedBox(height: screenSize.height * 0.02),
                     _buildOrDivider(),
@@ -124,8 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                     _buildGoogleSignIn(context),
                     SizedBox(height: screenSize.height * 0.02),
                   ],
-                  if(_isOtpSent)
-                    SizedBox(height: screenSize.height * 0.04),
+                  if (_isOtpSent) SizedBox(height: screenSize.height * 0.04),
                 ],
               ),
             ),
@@ -154,12 +157,11 @@ class _LoginPageState extends State<LoginPage> {
         IntlPhoneField(
           controller: _phoneController,
           dropdownDecoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
-            ),
-            border: Border(right: BorderSide(color: Colors.grey.shade300))
-          ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              border: Border(right: BorderSide(color: Colors.grey.shade300))),
           showDropdownIcon: false,
           disableLengthCheck: true,
           decoration: InputDecoration(
@@ -200,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Text(
             "Enter OTP",
             style: GoogleFonts.manrope(
-              fontSize:16,
+              fontSize: 16,
               color: Color(0xff7B7B7B),
             ),
           ),
@@ -225,7 +227,9 @@ class _LoginPageState extends State<LoginPage> {
                   keyboardType: TextInputType.number,
                   maxLength: 1,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.manrope(fontSize: getResponsiveTextSize(context, 0.05),color: Color(0xff7B7B7B)),
+                  style: GoogleFonts.manrope(
+                      fontSize: getResponsiveTextSize(context, 0.05),
+                      color: Color(0xff7B7B7B)),
                   cursorColor: Color(0xFF4E9459),
                   decoration: InputDecoration(
                     counterText: '',
@@ -267,12 +271,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   "RESEND OTP",
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF4E9459),
-                    decoration: TextDecoration.underline,
-                    decorationColor:Color(0xFF4E9459)
-                  ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF4E9459),
+                      decoration: TextDecoration.underline,
+                      decorationColor: Color(0xFF4E9459)),
                 ),
               ),
             ],
@@ -310,7 +313,8 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 cursorColor: Color(0xFF4E9459),
                 controller: _groomNameController,
-                style: GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
+                style: GoogleFonts.manrope(
+                    color: Color.fromARGB(255, 113, 113, 113)),
                 decoration: _getInputDecoration(context, 'Groom Name'),
               ),
             ),
@@ -321,7 +325,8 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 cursorColor: Color(0xFF4E9459),
                 controller: _brideNameController,
-                style: GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
+                style: GoogleFonts.manrope(
+                    color: Color.fromARGB(255, 113, 113, 113)),
                 decoration: _getInputDecoration(context, 'Bride Name'),
               ),
             ),
@@ -343,7 +348,8 @@ class _LoginPageState extends State<LoginPage> {
             cursorColor: Color(0xFF4E9459),
             controller: _weddingDateController,
             readOnly: true,
-            style: GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
+            style:
+                GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
             onTap: () => _showDatePicker(context),
             decoration: _getInputDecoration(context, '15th December 2024'),
           ),
@@ -353,29 +359,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   InputDecoration _getInputDecoration(BuildContext context, String label) {
-  return InputDecoration(
-    hintText: label,  // Use hintText instead of labelText
-    hintStyle: GoogleFonts.manrope(
-      fontSize: getResponsiveTextSize(context, 0.035),
-      color: Color.fromARGB(255, 113, 113, 113),
-    ),
-    contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: Colors.grey.shade300),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: Colors.grey.shade300),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: Colors.green, width: 2),
-    ),
-  );
-}
-
-
+    return InputDecoration(
+      hintText: label, // Use hintText instead of labelText
+      hintStyle: GoogleFonts.manrope(
+        fontSize: getResponsiveTextSize(context, 0.035),
+        color: Color.fromARGB(255, 113, 113, 113),
+      ),
+      contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.green, width: 2),
+      ),
+    );
+  }
 
   Future<void> _showDatePicker(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -396,7 +400,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     );
-    
+
     if (picked != null) {
       setState(() {
         _weddingDateController.text = DateFormat('dd MMMM yyyy').format(picked);
@@ -444,7 +448,8 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'OR',
-            style: GoogleFonts.manrope(color: Colors.grey[600], fontWeight: FontWeight.bold),
+            style: GoogleFonts.manrope(
+                color: Colors.grey[600], fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(child: Divider(color: Colors.grey[300])),
@@ -453,26 +458,26 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildSkipButton() {
-  return Container(
-    width: 78,
-    height: 40, // Add padding for spacing
-    decoration: BoxDecoration(
-      color: Colors.black.withOpacity(0.5), // Slight transparency for better visibility
-      borderRadius: BorderRadius.circular(50), // Rounded corners
-    ),
-    child: Center(
-      child: Text(
-        'Skip',
-        style: GoogleFonts.manrope(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+    return Container(
+      width: 78,
+      height: 40, // Add padding for spacing
+      decoration: BoxDecoration(
+        color: Colors.black
+            .withOpacity(0.5), // Slight transparency for better visibility
+        borderRadius: BorderRadius.circular(50), // Rounded corners
+      ),
+      child: Center(
+        child: Text(
+          'Skip',
+          style: GoogleFonts.manrope(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   Widget _buildGoogleSignIn(BuildContext context) {
     final size = MediaQuery.of(context).size.width * 0.15;
@@ -484,10 +489,9 @@ class _LoginPageState extends State<LoginPage> {
         border: Border.all(color: Colors.grey[300]!),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(size / 2),
-        onTap: _handleGoogleSignIn,
-        child: Image.asset(ImageConstant.googleLogo)
-      ),
+          borderRadius: BorderRadius.circular(size / 2),
+          onTap: _handleGoogleSignIn,
+          child: Image.asset(ImageConstant.googleLogo)),
     );
   }
 
@@ -572,10 +576,10 @@ class _LoginPageState extends State<LoginPage> {
 extension ResponsiveSize on BuildContext {
   double get screenWidth => MediaQuery.of(this).size.width;
   double get screenHeight => MediaQuery.of(this).size.height;
-  
+
   double wp(double percentage) => screenWidth * percentage / 100;
   double hp(double percentage) => screenHeight * percentage / 100;
-  
+
   bool get isSmallScreen => screenWidth < 360;
   bool get isMediumScreen => screenWidth >= 360 && screenWidth < 600;
   bool get isLargeScreen => screenWidth >= 600;
