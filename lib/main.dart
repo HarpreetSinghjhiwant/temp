@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return CupertinoApp(
-          initialRoute: '/home',
+          initialRoute: '/login',
           debugShowCheckedModeBanner: false,
           routes:{
             '/fillform': (context) => FillForm(),
