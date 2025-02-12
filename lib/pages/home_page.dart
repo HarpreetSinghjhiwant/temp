@@ -452,7 +452,7 @@ class _HomePageState extends State<HomePage> {
                   border: Border.all(color: Color(0xff4E9459), width: 2),
                 ),
                 child: Icon(
-                  PhosphorIcons.arrowDown(),
+                  PhosphorIcons.arrowUpRight(),
                   size: 24.0,
                   color: Color(0xff4E9459),
                 ),
