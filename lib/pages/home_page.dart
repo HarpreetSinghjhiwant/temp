@@ -678,7 +678,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: _buildButton('Create Now', () {}),
+                  child: _buildButton('Create Now',  () {
+                  Navigator.pushNamed(context, '/category');
+                }),
                 ),
                 SizedBox(
                   height: 100,

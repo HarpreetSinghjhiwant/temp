@@ -512,6 +512,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         if (_validateCoupleDetails()) {
           await Future.delayed(Duration(seconds: 1));
+                  Navigator.pushReplacementNamed(context, '/home');
           // Navigate to next screen or handle success
           print('Registration complete');
         }

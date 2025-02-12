@@ -190,28 +190,33 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
               ),
               SizedBox(width: 12),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xffE2E2E2)),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 18.0, vertical: 12),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Couple's Details",
-                        style: GoogleFonts.roboto(
-                          textStyle:
-                              TextStyle(color: Color(0xff6D6D6D), fontSize: 14),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/fillform');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffE2E2E2)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18.0, vertical: 12),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Couple's Details",
+                          style: GoogleFonts.roboto(
+                            textStyle:
+                                TextStyle(color: Color(0xff6D6D6D), fontSize: 14),
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 6),
-                      Icon(PhosphorIcons.pencilSimpleLine(),
-                          size: 24, color: Color(0xff4E9459)),
-                    ],
+                        SizedBox(width: 6),
+                        Icon(PhosphorIcons.pencilSimpleLine(),
+                            size: 24, color: Color(0xff4E9459)),
+                      ],
+                    ),
                   ),
                 ),
               ),
