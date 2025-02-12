@@ -17,59 +17,59 @@ class _CategoryPageState extends State<CategoryPage> {
   final List<Map<String, String>> pdfInvites = [
     {
       "title": "Title 1",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 2",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 3",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 4",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 5",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 6",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 7",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 8",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 9",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 10",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 11",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 12",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 13",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
     {
       "title": "Title 14",
-      "image": "assets/Element_for_UI/image.png",
+      "image": "assets/home_page_assets/image.png",
     },
   ];
 

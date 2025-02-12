@@ -65,8 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 if(!_isCorrectOtp)
                 Positioned(
-                  top: 20, // Distance from the top of the screen
-                  right: 20, // Distance from the right side of the screen
+                  top: 40, // Distance from the top of the screen
+                  right: 30, // Distance from the right side of the screen
                   child:
                       _buildSkipButton(), // Skip button positioned on top-right
                 ),
@@ -158,18 +158,19 @@ class _LoginPageState extends State<LoginPage> {
               topLeft: Radius.circular(12),
               bottomLeft: Radius.circular(12),
             ),
+            border: Border(right: BorderSide(color: Colors.grey.shade300))
           ),
           showDropdownIcon: false,
           disableLengthCheck: true,
           decoration: InputDecoration(
-            labelText: 'Enter your Ph. Number',
+            hintText: 'Enter your Ph. Number',
             errorText: _phoneError,
-            labelStyle: GoogleFonts.manrope(
+            hintStyle: GoogleFonts.manrope(
               fontSize: getResponsiveTextSize(context, 0.035),
               color: Color(0xff7B7B7B),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+            contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey.shade300),
@@ -225,6 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                   maxLength: 1,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.manrope(fontSize: getResponsiveTextSize(context, 0.05),color: Color(0xff7B7B7B)),
+                  cursorColor: Color(0xFF4E9459),
                   decoration: InputDecoration(
                     counterText: '',
                     border: InputBorder.none,
@@ -306,8 +308,9 @@ class _LoginPageState extends State<LoginPage> {
               width: 151,
               height: 51,
               child: TextField(
+                cursorColor: Color(0xFF4E9459),
                 controller: _groomNameController,
-                style: GoogleFonts.manrope(color: Color(0xffBCBCBC)),
+                style: GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
                 decoration: _getInputDecoration(context, 'Groom Name'),
               ),
             ),
@@ -316,8 +319,9 @@ class _LoginPageState extends State<LoginPage> {
               width: 151,
               height: 51,
               child: TextField(
+                cursorColor: Color(0xFF4E9459),
                 controller: _brideNameController,
-                style: GoogleFonts.manrope(color: Color(0xffBCBCBC)),
+                style: GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
                 decoration: _getInputDecoration(context, 'Bride Name'),
               ),
             ),
@@ -336,9 +340,10 @@ class _LoginPageState extends State<LoginPage> {
           height: 51,
           width: double.infinity,
           child: TextField(
+            cursorColor: Color(0xFF4E9459),
             controller: _weddingDateController,
             readOnly: true,
-            style: GoogleFonts.manrope(color: Color(0xffBCBCBC)),
+            style: GoogleFonts.manrope(color: Color.fromARGB(255, 113, 113, 113)),
             onTap: () => _showDatePicker(context),
             decoration: _getInputDecoration(context, '15th December 2024'),
           ),
@@ -348,28 +353,29 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   InputDecoration _getInputDecoration(BuildContext context, String label) {
-    return InputDecoration(
-      labelText: label,
-      labelStyle: GoogleFonts.manrope(
-        fontSize: getResponsiveTextSize(context, 0.035),
-        color: Color(0xffBCBCBC),
-      ),
-       contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-      floatingLabelBehavior: FloatingLabelBehavior.never,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.grey.shade300),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.green, width: 2),
-      ),
-    );
-  }
+  return InputDecoration(
+    hintText: label,  // Use hintText instead of labelText
+    hintStyle: GoogleFonts.manrope(
+      fontSize: getResponsiveTextSize(context, 0.035),
+      color: Color.fromARGB(255, 113, 113, 113),
+    ),
+    contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(4),
+      borderSide: BorderSide(color: Colors.grey.shade300),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(4),
+      borderSide: BorderSide(color: Colors.grey.shade300),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(4),
+      borderSide: BorderSide(color: Colors.green, width: 2),
+    ),
+  );
+}
+
+
 
   Future<void> _showDatePicker(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -438,7 +444,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'OR',
-            style: GoogleFonts.manrope(color: Colors.grey[600]),
+            style: GoogleFonts.manrope(color: Colors.grey[600], fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(child: Divider(color: Colors.grey[300])),
@@ -448,8 +454,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildSkipButton() {
   return Container(
-    width: 68,
-    height: 36, // Add padding for spacing
+    width: 78,
+    height: 40, // Add padding for spacing
     decoration: BoxDecoration(
       color: Colors.black.withOpacity(0.5), // Slight transparency for better visibility
       borderRadius: BorderRadius.circular(50), // Rounded corners
@@ -460,7 +466,7 @@ class _LoginPageState extends State<LoginPage> {
         style: GoogleFonts.manrope(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 14,
+          fontSize: 16,
         ),
       ),
     ),

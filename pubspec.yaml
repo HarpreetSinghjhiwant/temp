@@ -72,22 +72,23 @@ flutter:
   assets:
     - assets/ 
     - assets/images/
-    - assets/Element_for_UI/
-    - assets/Element_for_UI/Customise_order_1/DDLJ.mp4
-    - assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4
-    - assets/Element_for_UI/Customise_order3/Kanchan_Priya_weds_Drew1.mp4
-    - assets/Element_for_UI/Customise_order_1/image.jpeg
-    - assets/Element_for_UI/Customise_order2/image.png
-    - assets/Element_for_UI/Customise_order3/image.png
-    - assets/Element_for_UI/Customise_order_1/
-    - assets/Element_for_UI/Customise_order2/
-    - assets/Element_for_UI/Customise_order3/
-    - assets/Element_for_UI/Review/
-    - assets/Element_for_UI/Review/Shreya&Ron.png
-    - assets/Element_for_UI/Review/gigapixel-2.png
-    - assets/Element_for_UI/Review/gigapixel-3.png
-    - assets/Element_for_UI/Review/gigapixel-4.png
-    - assets/Element_for_UI/Review/Review.png
+    - assets/icons/
+    - assets/home_page_assets/
+    - assets/home_page_assets/Customise_order_1/DDLJ.mp4
+    - assets/home_page_assets/Customise_order2/Siddharth_weds_Maithili1.mp4
+    - assets/home_page_assets/Customise_order3/Kanchan_Priya_weds_Drew1.mp4
+    - assets/home_page_assets/Customise_order_1/image.jpeg
+    - assets/home_page_assets/Customise_order2/image.png
+    - assets/home_page_assets/Customise_order3/image.png
+    - assets/home_page_assets/Customise_order_1/
+    - assets/home_page_assets/Customise_order2/
+    - assets/home_page_assets/Customise_order3/
+    - assets/home_page_assets/Review/
+    - assets/home_page_assets/Review/Shreya&Ron.png
+    - assets/home_page_assets/Review/gigapixel-2.png
+    - assets/home_page_assets/Review/gigapixel-3.png
+    - assets/home_page_assets/Review/gigapixel-4.png
+    - assets/home_page_assets/Review/Review.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

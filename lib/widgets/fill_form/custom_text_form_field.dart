@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temp/widgets/transliterate_text_form_field.dart';
-import '../core/app_export.dart';
+import 'package:temp/widgets/fill_form/transliterate_text_form_field.dart';
+import '../../core/app_export.dart';
 
 extension TextFormFieldStyleHelper on CustomTextFormField {
   static OutlineInputBorder get outlineBlueGrayTL10 => OutlineInputBorder(

@@ -5,7 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:temp/pages/category.dart';
 import 'package:temp/pages/fill_form.dart';
 import 'package:temp/pages/home_page.dart';
-import 'package:temp/pages/language_page.dart';
 import 'package:temp/pages/login_page.dart';
 import 'core/app_export.dart';
 
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-          initialRoute: '/home',
+          initialRoute: '/login',
           debugShowCheckedModeBanner: false,
           routes:{
             '/': (context) => FillForm(),

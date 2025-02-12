@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:temp/core/app_export.dart';
-import 'package:temp/widgets/video_comp.dart';
-import 'package:temp/widgets/youtube_video_player.dart';
+import 'package:temp/widgets/home_page/video_comp.dart';
+import 'package:temp/widgets/home_page/youtube_video_player.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -19,84 +21,84 @@ class _HomePageState extends State<HomePage> {
     {
       "title":"Simran weds Shikhar",
       "description":"Our love story is just like a modern-day fairytale! 🌍❤️ From the snow-covered streets of Canada to the vibrant lanes of India.",
-      "image":"assets/Element_for_UI/Customise_order_1/image.jpeg",
-      "video":"assets/Element_for_UI/Customise_order_1/DDLJ.mp4",
+      "image":"assets/home_page_assets/Customise_order_1/image.jpeg",
+      "video":"assets/home_page_assets/Customise_order_1/DDLJ.mp4",
     },
     {
       "title":"Siddharth weds Maithili",
       "description":"Our love story is just like a modern-day fairytale! 🌍❤️ From the snow-covered streets of Canada to the vibrant lanes of India.",
-      "image":"assets/Element_for_UI/Customise_order2/image.png",
-      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
+      "image":"assets/home_page_assets/Customise_order2/image.png",
+      "video":"assets/home_page_assets/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
     {
       "title":"Kanchan Priya weds Drew",
       "description":"Our love story began in the heart of Bangalore, where fate brought a USA groom and an Indian bride together in the most magical way. 🇺🇸❤️🇮🇳 Amidst the vibrant culture, bustling streets, and unforgettable moments, we found each other.",
-      "image":"assets/Element_for_UI/Customise_order3/image.png",
-      "video":"assets/Element_for_UI/Customise_order3/Kanchan_Priya_weds_Drew1.mp4",
+      "image":"assets/home_page_assets/Customise_order3/image.png",
+      "video":"assets/home_page_assets/Customise_order3/Kanchan_Priya_weds_Drew1.mp4",
     },
   ];
 
   final List<Map<String,String>> pdfInvites = [
     {
       "title":"Title 1",
-      "image":"assets/Element_for_UI/image.png",
+      "image":"assets/home_page_assets/image.png",
     },
     {
       "title":"Title 2",
-      "image":"assets/Element_for_UI/image.png",
+      "image":"assets/home_page_assets/image.png",
     },
     {
       "title":"Title 3",
-      "image":"assets/Element_for_UI/image.png",
+      "image":"assets/home_page_assets/image.png",
     },
     {
       "title":"Title 4",
-      "image":"assets/Element_for_UI/image.png",
+      "image":"assets/home_page_assets/image.png",
     },
     {
       "title":"Title 5",
-      "image":"assets/Element_for_UI/image.png",
+      "image":"assets/home_page_assets/image.png",
     },
     {
       "title":"Title 6",
-      "image":"assets/Element_for_UI/image.png",
+      "image":"assets/home_page_assets/image.png",
     },
   ];
 
   final List<Map<String,String>> videoUrls = [
     {
       "image":"assets/images/img_2024_08_13_15_20_26_3191.png",
-      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
+      "video":"assets/home_page_assets/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
     {
       "image":"assets/images/img_2024_08_13_15_20_26_3191.png",
-      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
+      "video":"assets/home_page_assets/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
     {
       "image":"assets/images/img_2024_08_13_15_20_26_3191.png",
-      "video":"assets/Element_for_UI/Customise_order2/Siddharth_weds_Maithili1.mp4",
+      "video":"assets/home_page_assets/Customise_order2/Siddharth_weds_Maithili1.mp4",
     },
   ];
 
   final List<Map<String,String>> reviewVideoUrls = [
     {
-      "image":"assets/Element_for_UI/Review/Review.png",
+      "image":"assets/home_page_assets/Review/Review.png",
       "video":"https://www.youtube.com/shorts/pt8bFP2GoOs",
     },
     {
-      "image":"assets/Element_for_UI/Review/Shreya&Ron.png",
+      "image":"assets/home_page_assets/Review/Shreya&Ron.png",
       "video":"https://www.youtube.com/shorts/1T_JRakNa-Y",
     },
     {
-      "image":"assets/Element_for_UI/Review/gigapixel-2.png",
+      "image":"assets/home_page_assets/Review/gigapixel-2.png",
       "video":"https://www.youtube.com/shorts/I-EUvSw5oMc",
     },
     {
-      "image":"assets/Element_for_UI/Review/gigapixel-3.png",
+      "image":"assets/home_page_assets/Review/gigapixel-3.png",
       "video":"https://www.youtube.com/shorts/jCH3Do8DhXw",
     },
     {
-      "image":"assets/Element_for_UI/Review/gigapixel-4.png",
+      "image":"assets/home_page_assets/Review/gigapixel-4.png",
       "video":"https://www.youtube.com/shorts/kePFAl-rlE8",
     },
   ];
@@ -144,7 +146,6 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 12),
           _buildVideoCard(image,video),
-          SizedBox(height: 12),
         ],
       ),
     ),
@@ -191,81 +192,132 @@ class _HomePageState extends State<HomePage> {
           // Social Media Icons and Image Section
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Social Icons
-              Column(
-                children: [
-                  _buildSocialIcon(PhosphorIcons.linkedinLogo()),
-                  SizedBox(height: 20),
-                  _buildSocialIcon(PhosphorIcons.instagramLogo()),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left:12.0),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    _buildSocialIcon(PhosphorIcons.linkedinLogo()),
+                    SizedBox(height: 30),
+                    _buildSocialIcon(PhosphorIcons.instagramLogo()),
+                  ],
+                ),
               ),
               
               // Founder Image
+
               Center(
-                child: Image.asset(
-                  ImageConstant.Image,
-                  width: 285,   // Adjusted width to prevent overflow
-                  height: 244,  // Adjusted height
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12,),
-          
-          // Contact and Social Media Section
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Contact Info
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left:8.0),
-                        child: Text('Contact', style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 14, fontWeight: FontWeight.bold))),
-                      ),
-                      SizedBox(height: 12),
-                      _buildContactRow(PhosphorIcons.phoneCall(), '+91-8005993442'),
-                      SizedBox(height: 12),
-                      _buildContactRow(PhosphorIcons.envelopeSimple(), 'support@celebrare.in'),
-                    ],
-                  ),
-                ),
-                
-                // Connect With Us
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Connect With Us on', style:GoogleFonts.roboto(textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 14,fontWeight: FontWeight.bold))),
-                        SizedBox(height: 12),
-                        Row(
-                          children: [
-                            _buildSocialLogo(ImageConstant.pinterestLogo),
-                            _buildSocialLogo(ImageConstant.instagramLogo),
-                            _buildSocialLogo(ImageConstant.facebookLogo),
-                          ],
+                      // Blurred Shadow Layer
+                      Positioned(
+                        top: 4, // Offset for shadow effect
+                        left: 4,
+                        child: ImageFiltered(
+                          imageFilter: ImageFilter.blur(
+                              sigmaX: 8, sigmaY: 8), // Apply blur for shadow
+                          child: Image.asset(
+                            ImageConstant.Image,
+                            width: 284,
+                            height: 244,
+                            color: Color(0xff4E9459), // Shadow color with transparency
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+
+                      // Main Image (on top)
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Image.asset(
+                            ImageConstant.Image,
+                            width: 284,
+                            height: 244,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                child: Divider(
+                  color: Color.fromARGB(255, 211, 208, 208),
+                  thickness: 1,
+                ),
+              ),
+        _buildContact()
         ],
       ),
     ),
   );
 }
+
+Widget _buildContact() {
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Contact Info
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text('Contact',
+                      style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                              color: Color(0xff6F6F6F),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold))),
+                ),
+                SizedBox(height: 12),
+                _buildContactRow(PhosphorIcons.phoneCall(), '+91-8005993442'),
+                SizedBox(height: 12),
+                _buildContactRow(
+                    PhosphorIcons.envelopeSimple(), 'support@celebrare.in'),
+              ],
+            ),
+          ),
+
+          // Connect With Us
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Connect With Us on',
+                      style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                              color: Color(0xff6F6F6F),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold))),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      _buildSocialLogo(ImageConstant.pinterestLogo),
+                      _buildSocialLogo(ImageConstant.instagramLogo),
+                      _buildSocialLogo(ImageConstant.facebookLogo),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
 // Helper widget for Social Icons
 Widget _buildSocialIcon(IconData iconData) {
@@ -314,7 +366,7 @@ Widget _buildSocialLogo(String assetPath) {
         borderRadius: BorderRadius.circular(20),
         child: Container(
           width: 277.95,
-          height: 466.81,
+          height: 476.81,
           decoration: BoxDecoration(
               border: Border.all(color: Color(0xff6D6D6D), width: 1),
               borderRadius: BorderRadius.circular(20)
@@ -499,36 +551,52 @@ Widget _buildSocialLogo(String assetPath) {
                   height: 50,
                 ),
                 Container(
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Text(
-                          'For Special',
-                          style: GoogleFonts.poppins(textStyle:TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 124, 218, 138),
-                              letterSpacing: 3)),
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          'Moments',
-                          style:GoogleFonts.poppins(textStyle: TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 124, 218, 138),
-                              letterSpacing: 3)),
-                        ),
-                      ),
-                      Image.asset(
-                        ImageConstant.mainBackground,
-                        width: 405,
-                        height: 244,
-                      ),
-                    ],
-                  ),
+  child: Column(
+    children: [
+      Center(
+        child: Text(
+          'For Special',
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.w600,
+              color: Color(0xff4E9459),
+              letterSpacing: 3,
+            ),
+          ),
+        ),
+      ),
+      Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20), // Move the image down
+            child: Image.asset(
+              ImageConstant.mainBackground,
+              width: double.infinity,
+              height: 244,
+              fit: BoxFit.cover, // Ensures the image covers the area properly
+            ),
+          ),
+          Center(
+            child: Text(
+              'Moments',
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff4E9459),
+                  letterSpacing: 3,
                 ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+
+
                 SizedBox(
                   height: 50,
                 ),

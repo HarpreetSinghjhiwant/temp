@@ -12,11 +12,15 @@ class ImageConstant {
 
   static String groomImage = '$imagePath/img_group_1321314841_1.png';
   static String celebrareImage = '$imagePath/image_celebrare.png';
-  static String googleLogo = '$imagePath/google_logo.png';
   static String Image = '$imagePath/image.png';
-  static String facebookLogo = '$imagePath/facebook_logo.png';
-  static String instagramLogo = '$imagePath/instagram_logo.png';
-  static String pinterestLogo = '$imagePath/pinterest_logo.png';
+  
+  // Home page main image
   static String mainBackground = '$imagePath/main_background.png';
+
+  // Icons used in home and category page
+  static String googleLogo = 'assets/icons/google_logo.png';
+  static String facebookLogo = 'assets/icons/facebook_logo.png';
+  static String instagramLogo = 'assets/icons/instagram_logo.png';
+  static String pinterestLogo = 'assets/icons/pinterest_logo.png';
 }
 
