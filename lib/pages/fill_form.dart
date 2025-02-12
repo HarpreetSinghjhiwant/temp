@@ -1283,6 +1283,7 @@ class _FillFormState extends State<FillForm> {
                     children: [
                       DropdownButtonFormField<String>(
                         value: selectedLang,
+                        dropdownColor: Colors.white,
                         items: languageCode.keys.map((String lang) {
                           return DropdownMenuItem<String>(
                             value: lang,

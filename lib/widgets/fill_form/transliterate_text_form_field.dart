@@ -295,6 +295,14 @@ class _TransliterateFormField extends State<TransliterateFormField> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _clearSuggestions();
+    _isLoading = false;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: widget.initialText,
@@ -311,6 +319,8 @@ class _TransliterateFormField extends State<TransliterateFormField> {
       scrollPadding: widget.scrollPadding,
       onTapOutside: (event) {
         widget.onTapOutside.call(); 
+        _clearSuggestions();
+        _isLoading = false;
       },
       autofocus: widget.autofocus,
       onFieldSubmitted: (value) {

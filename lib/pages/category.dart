@@ -12,7 +12,6 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-
   String type = 'South Indian';
   final List<Map<String, String>> pdfInvites = [
     {
@@ -148,7 +147,7 @@ class _CategoryPageState extends State<CategoryPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-                Container(
+              Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xffE2E2E2)),
                   borderRadius: BorderRadius.circular(50),
@@ -159,61 +158,64 @@ class _CategoryPageState extends State<CategoryPage> {
                   icon: Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: Icon(
-                    PhosphorIcons.caretDown(),
-                    size: 24,
-                    color: Color(0xff6D6D6D),
+                      PhosphorIcons.caretDown(),
+                      size: 24,
+                      color: Color(0xff6D6D6D),
                     ),
                   ),
                   style: GoogleFonts.roboto(
-                  textStyle: TextStyle(color: Color(0xff4E9459), fontSize: 16),
+                    textStyle:
+                        TextStyle(color: Color(0xff4E9459), fontSize: 16),
                   ),
                   underline: Container(
-                  height: 0,
+                    height: 0,
                   ),
                   items: <String>[
-                  'South Indian',
-                  'North Indian',
-                  'Western',
-                  'Others',
+                    'South Indian',
+                    'North Indian',
+                    'Western',
+                    'Others',
                   ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
                   }).toList(),
                   onChanged: (String? newValue) {
-                  setState(() {
-                    // Handle value change
-                    type = newValue!;
-                  });
+                    setState(() {
+                      // Handle value change
+                      type = newValue!;
+                    });
                   },
                 ),
-                ),
-                SizedBox(width: 12),
-                Container(
+              ),
+              SizedBox(width: 12),
+              Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xffE2E2E2)),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0, vertical: 12),
                   child: Row(
                     children: [
-                    Text(
-                      "Couple's Details",
-                      style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Color(0xff6D6D6D), fontSize: 14),
+                      Text(
+                        "Couple's Details",
+                        style: GoogleFonts.roboto(
+                          textStyle:
+                              TextStyle(color: Color(0xff6D6D6D), fontSize: 14),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 6),
-                    Icon(PhosphorIcons.pencilSimpleLine(), size: 24, color: Color(0xff4E9459)),
+                      SizedBox(width: 6),
+                      Icon(PhosphorIcons.pencilSimpleLine(),
+                          size: 24, color: Color(0xff4E9459)),
                     ],
                   ),
                 ),
-                ),
-                
-              ],
+              ),
+            ],
           ),
           SizedBox(height: 12),
         ],
@@ -435,7 +437,7 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
               SizedBox(height: 12),
               _buildContact(),
-              SizedBox(height:16)
+              SizedBox(height: 16)
             ],
           ),
         ),

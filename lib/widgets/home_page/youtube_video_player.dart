@@ -18,24 +18,28 @@ class VideoReviewCard extends StatefulWidget {
 class _VideoReviewCardState extends State<VideoReviewCard> {
   YoutubePlayerController? _controller;
   bool _isPlaying = false;
+  late final String _videoId;
+
+  @override
+  void initState() {
+    super.initState();
+    _videoId = YoutubePlayerController.convertUrlToId(widget.videoUrl) ?? '';
+    if (_videoId.isEmpty) {
+      print('Invalid YouTube URL or Video ID not found.');
+    }
+  }
 
   void _initializePlayer() {
-    final String videoId = YoutubePlayerController.convertUrlToId(widget.videoUrl) ?? '';
-
-    if (videoId.isEmpty) {
-      print('Invalid YouTube URL or Video ID not found.');
-      return;
+    if (_controller == null && _videoId.isNotEmpty) {
+      _controller = YoutubePlayerController(
+        params: YoutubePlayerParams(
+          showFullscreenButton: false,
+          enableCaption: false,
+          showControls: false,
+        ),
+      );
+      _controller!.loadVideoById(videoId: _videoId);
     }
-
-    _controller = YoutubePlayerController(
-      params: YoutubePlayerParams(
-        showFullscreenButton: false,
-        enableCaption: false,
-        showControls: false,
-      ),
-    );
-
-    _controller!.loadVideoById(videoId: videoId);
   }
 
   @override
@@ -57,9 +61,9 @@ class _VideoReviewCardState extends State<VideoReviewCard> {
             BoxShadow(
               color: Colors.grey[350]!,
               spreadRadius: 4,
-              blurRadius: 2
-            )
-          ]
+              blurRadius: 2,
+            ),
+          ],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
@@ -67,42 +71,43 @@ class _VideoReviewCardState extends State<VideoReviewCard> {
             alignment: Alignment.center,
             children: [
               if (_isPlaying && _controller != null)
-                YoutubePlayer(
-                  controller: _controller!,
-                  aspectRatio: 9 / 16,
-                ),
-              if (!_isPlaying)
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isPlaying = true;
-                      _initializePlayer();
-                    });
-                  },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        widget.image,
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          print('Error loading image: $error');
-                          return Center(child: Icon(Icons.broken_image, size: 64));
-                        },
-                      ),
-                      const Icon(
-                        Icons.play_circle_fill,
-                        size: 64,
-                        color: Colors.white70,
-                      ),
-                    ],
-                  ),
-                ),
+                YoutubePlayer(controller: _controller!, aspectRatio: 9 / 16)
+              else
+                _buildThumbnail(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildThumbnail() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isPlaying = true;
+          _initializePlayer();
+        });
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.asset(
+            widget.image,
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              print('Error loading image: $error');
+              return Center(child: Icon(Icons.broken_image, size: 64));
+            },
+          ),
+          const Icon(
+            Icons.play_circle_fill,
+            size: 64,
+            color: Colors.white70,
+          ),
+        ],
       ),
     );
   }

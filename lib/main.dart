@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp(
-          initialRoute: '/login',
+          initialRoute: '/home',
           debugShowCheckedModeBanner: false,
           routes:{
-            '/': (context) => FillForm(),
+            '/fillform': (context) => FillForm(),
             '/login':(context) => LoginPage(),
             '/home':(context)=>HomePage(),
             '/category':(context)=>CategoryPage(),

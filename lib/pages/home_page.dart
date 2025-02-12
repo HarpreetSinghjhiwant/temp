@@ -190,49 +190,70 @@ class _HomePageState extends State<HomePage> {
           ),
           
           // Social Media Icons and Image Section
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              // Social Icons
-              Padding(
-                padding: const EdgeInsets.only(left:12.0),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    _buildSocialIcon(PhosphorIcons.linkedinLogo()),
-                    SizedBox(height: 30),
-                    _buildSocialIcon(PhosphorIcons.instagramLogo()),
-                  ],
-                ),
-              ),
-              
-              // Founder Image
-
-              Center(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Blurred Shadow Layer
-                      Positioned(
-                        top: 4, // Offset for shadow effect
-                        left: 4,
-                        child: ImageFiltered(
-                          imageFilter: ImageFilter.blur(
-                              sigmaX: 8, sigmaY: 8), // Apply blur for shadow
-                          child: Image.asset(
-                            ImageConstant.Image,
-                            width: 284,
-                            height: 244,
-                            color: Color(0xff4E9459), // Shadow color with transparency
+              Positioned(
+                          bottom: 3,
+                          width: 600,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:28.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 211, 208, 208),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 211, 208, 208),
+                                      spreadRadius: 0.2,
+                                      blurRadius: 0.2
+                                    )
+                                  ]
+                                ),
+                                height: 1,
+                                width: 343,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-
-                      // Main Image (on top)
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Social Icons
+                  Padding(
+                    padding: const EdgeInsets.only(left:12.0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        _buildSocialIcon(PhosphorIcons.linkedinLogo()),
+                        SizedBox(height: 30),
+                        _buildSocialIcon(PhosphorIcons.instagramLogo()),
+                      ],
+                    ),
+                  ),
+                  
+                  // Founder Image
+              
+                  Center(
+                      child: Stack(
+                        alignment: Alignment.center,
                         children: [
+                          // Blurred Shadow Layer
+                          Positioned(
+                            bottom: 1, // Offset for shadow effect
+                            child: ImageFiltered(
+                              imageFilter: ImageFilter.blur(
+                                  sigmaX: 10, sigmaY: 10), // Apply blur for shadow
+                              child: Image.asset(
+                                ImageConstant.Image,
+                                width: 320,
+                                height: 250,
+                                color: Color(0xff4E9459), // Shadow color with transparency
+                              ),
+                            ),
+                          ),
+                          // Main Image (on top)
                           Image.asset(
                             ImageConstant.Image,
                             width: 284,
@@ -241,19 +262,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                child: Divider(
-                  color: Color.fromARGB(255, 211, 208, 208),
-                  thickness: 1,
-                ),
-              ),
-        _buildContact()
+            ],
+          ),
+            _buildContact(),
         ],
       ),
     ),
@@ -288,7 +302,7 @@ Widget _buildContact() {
               ],
             ),
           ),
-
+    
           // Connect With Us
           Expanded(
             child: Padding(
