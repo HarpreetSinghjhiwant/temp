@@ -227,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                             color: Color(0xffD5D5D5),
                             ),
                         height: 1,
-                        width: 360,
+                        width: 356,
                       ),
                     ),
                   ),
@@ -407,12 +407,6 @@ class _HomePageState extends State<HomePage> {
           height: 476.81,
           decoration: BoxDecoration(
             border:showBorder? Border.all(color: Color(0xffB0B0B0), width: 2):Border.all(color: Colors.white),
-              // border: Border.all(color: Color(0xffB0B0B0), width: 1),
-              //  boxShadow: [
-              //   if(showBorder)BoxShadow(
-              //     color: Color(0xffB0B0B0),
-              //   )
-              // ],
               borderRadius: BorderRadius.circular(20)),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
