@@ -13,6 +13,8 @@ class SimpleVideoPlayer extends StatefulWidget {
 class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
   late VideoPlayerController _controller;
   bool _hasError = false;
+  bool _showControls = true;
+  bool _isPlaying = false;  // Add this to track playing state
 
   @override
   void initState() {
@@ -27,6 +29,16 @@ class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
           : VideoPlayerController.asset(widget.videoUrl);
 
       await _controller.initialize();
+      
+      _controller.addListener(() {
+        final isPlaying = _controller.value.isPlaying;
+        if (isPlaying != _isPlaying) {
+          setState(() {
+            _isPlaying = isPlaying;
+          });
+        }
+      });
+      
       setState(() {
         _hasError = false;
       });
@@ -38,24 +50,46 @@ class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
     }
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void _togglePlayPause() {
+    setState(() {
+      if (_controller.value.isPlaying) {
+        _controller.pause();
+        _showControls = true;
+      } else {
+        _controller.play();
+        _startHideTimer();
+      }
+    });
   }
 
-  void _togglePlayPause() {
-    _controller.value.isPlaying ? _controller.pause() : _controller.play();
+  void _startHideTimer() {
+    Future.delayed(Duration(seconds: 2), () {
+      if (mounted && _controller.value.isPlaying) {
+        setState(() {
+          _showControls = false;
+        });
+      }
+    });
+  }
+
+  void _toggleControls() {
+    setState(() {
+      _showControls = !_showControls;
+      if (_controller.value.isPlaying && _showControls) {
+        _startHideTimer();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     if (_hasError || _controller.value.hasError) {
       return Center(
-          child: Text(
-        'Error loading video',
-        style: TextStyle(color: Colors.red, fontSize: 16),
-      ));
+        child: Text(
+          'Error loading video',
+          style: TextStyle(color: Colors.red, fontSize: 16),
+        ),
+      );
     }
 
     if (!_controller.value.isInitialized) {
@@ -64,14 +98,37 @@ class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
 
     return AspectRatio(
       aspectRatio: _controller.value.aspectRatio,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          VideoPlayer(_controller),
-          _PlayPauseButton(controller: _controller, onTap: _togglePlayPause),
-        ],
+      child: GestureDetector(
+        onTap: _toggleControls,
+        behavior: HitTestBehavior.translucent,  // Changed to translucent
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            VideoPlayer(_controller),
+            AnimatedOpacity(
+              opacity: _showControls ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 300),
+              child: GestureDetector(
+                onTap: _togglePlayPause,
+                child: Container(
+                  color: Colors.transparent,
+                  child: _PlayPauseButton(
+                    controller: _controller,
+                    onTap: _togglePlayPause,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
 
@@ -104,7 +161,7 @@ class _PlayPauseButton extends StatelessWidget {
             child: Icon(
               value.isPlaying ? Icons.pause : Icons.play_arrow,
               size: 48,
-              color: Colors.black,
+              color: Color(0xff605F5F),
             ),
           ),
         );

@@ -155,6 +155,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: DropdownButton<String>(
                   value: type, // Set initial value
+                  dropdownColor: Colors.white,
                   icon: Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: Icon(

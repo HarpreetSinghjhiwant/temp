@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
         height: 639,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Color(0xffD7D7D7), width: 2),
+          border: Border.all(color: Color.fromARGB(255, 181, 178, 178), width: 2),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 12),
-            _buildVideoCard(image, video),
+            _buildVideoCard(image, video,false),
           ],
         ),
       ),
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                         TextStyle(color: Color(0xff6D6D6D), fontSize: 16)),
               ),
             ),
-
+            SizedBox(height: 8,),
             // Social Media Icons and Image Section
             Stack(
               alignment: Alignment.bottomCenter,
@@ -224,15 +224,10 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 28.0),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey[300]!,
-                                  spreadRadius: 0.2,
-                                  blurRadius: 0.2)
-                            ]),
+                            color: Color(0xffD5D5D5),
+                            ),
                         height: 1,
-                        width: 320,
+                        width: 360,
                       ),
                     ),
                   ),
@@ -247,46 +242,56 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           SizedBox(height: 20),
-                          _buildSocialIcon(PhosphorIcons.linkedinLogo()),
+                          Container(
+                            width: 48,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color(0xff4E9459), width: 2),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Text('in',style: GoogleFonts.poppins(color: Color(0xff4E9459),fontSize:22,fontWeight:FontWeight.bold)),
+                            ),
+                          ),
+                          // _buildSocialIcon(PhosphorIcons.linkedinLogo()),
                           SizedBox(height: 30),
                           _buildSocialIcon(PhosphorIcons.instagramLogo()),
                         ],
                       ),
                     ),
-
+            
                     // Founder Image
-
-                    Center(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          // Blurred Shadow Layer
-                          Positioned(
-                            bottom: 1, // Offset for shadow effect
-                            child: ImageFiltered(
-                              imageFilter: ImageFilter.blur(
-                                  sigmaX: 10,
-                                  sigmaY: 10), // Apply blur for shadow
-                              child: Image.asset(
-                                ImageConstant.Image,
-                                width: 340,
-                                height: 250,
-                                color: Color(
-                                    0xff4E9459), // Shadow color with transparency
-                              ),
+            
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Blurred Shadow Layer
+                        Positioned(
+                          bottom: 3, // Offset for shadow effect
+                          child: ImageFiltered(
+                            imageFilter: ImageFilter.blur(
+                                sigmaX: 20,
+                                sigmaY: 8), // Apply blur for shadow
+                            child: Image.asset(
+                              ImageConstant.Image,
+                              width: 340,
+                              height: 248,
+                              color: Color(
+                                  0xff4E9459), // Shadow color with transparency
                             ),
                           ),
-                          // Main Image (on top)
-                          Image.asset(ImageConstant.Image,
-                              width: 284, height: 244, fit: BoxFit.contain),
-                        ],
-                      ),
+                        ),
+                        // Main Image (on top)
+                        Image.asset(ImageConstant.Image,
+                            width: 284, height: 244, fit: BoxFit.contain),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
-            _buildContact(),
           ],
         ),
       ),
@@ -392,7 +397,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildVideoCard(String image, String videoUrl) {
+  Widget _buildVideoCard(String image, String videoUrl,bool showBorder) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
@@ -401,7 +406,13 @@ class _HomePageState extends State<HomePage> {
           width: 277.95,
           height: 476.81,
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0xff6D6D6D), width: 1),
+            border:showBorder? Border.all(color: Color(0xffB0B0B0), width: 2):Border.all(color: Colors.white),
+              // border: Border.all(color: Color(0xffB0B0B0), width: 1),
+              //  boxShadow: [
+              //   if(showBorder)BoxShadow(
+              //     color: Color(0xffB0B0B0),
+              //   )
+              // ],
               borderRadius: BorderRadius.circular(20)),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -506,13 +517,15 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Container(
+              width: 49,
+              height: 49,
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffE5E5E5)),
                 shape: BoxShape.circle,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Icon(Icons.menu, size: 26),
+                child: Icon(Icons.menu, size: 28,color: Color(0xff7B7B7B),),
               ),
             ),
           ),
@@ -525,9 +538,20 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.green,
-              radius: 20,
+            child: Container(
+              width: 49,
+              height: 49,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.green,
+              ),
+              child: Center(
+                child: Text(
+                  'S',
+                  style: TextStyle(color: Colors.white,fontSize: 22),
+                ),
+              ),
+              // radius: 20,
               // backgroundImage: AssetImage(ImageConstant.profileImage),
             ),
           ),
@@ -592,8 +616,8 @@ class _HomePageState extends State<HomePage> {
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                               fontSize: 48,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff4E9459),
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 135, 202, 145),
                               letterSpacing: 3,
                             ),
                           ),
@@ -601,6 +625,19 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Stack(
                         children: [
+                          Center(
+                            child: Text(
+                              'Moments',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 135, 202, 145),
+                                  letterSpacing: 3,
+                                ),
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
                                 top: 20), // Move the image down
@@ -612,19 +649,6 @@ class _HomePageState extends State<HomePage> {
                                   .cover, // Ensures the image covers the area properly
                             ),
                           ),
-                          Center(
-                            child: Text(
-                              'Moments',
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff4E9459),
-                                  letterSpacing: 3,
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ],
@@ -634,7 +658,7 @@ class _HomePageState extends State<HomePage> {
                   height: 50,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.only(left: 22.0),
                   child: Container(
                     child: Text(
                       'PDF Invites',
@@ -711,7 +735,7 @@ class _HomePageState extends State<HomePage> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: _buildVideoCard(videoUrls[index]["image"]!,
-                              videoUrls[index]["video"]!),
+                              videoUrls[index]["video"]!,true),
                         );
                       },
                     ),
@@ -773,6 +797,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 12,),
                 SizedBox(
                   height: 662, // Adjust height based on video card size
                   child: Padding(
@@ -803,8 +828,9 @@ class _HomePageState extends State<HomePage> {
                   height: 100,
                 ),
                 _buildFooterSection(),
+                 _buildContact(),
                 SizedBox(
-                  height: 60,
+                  height: 30,
                 ),
               ],
             ),

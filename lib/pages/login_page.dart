@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
       List.generate(4, (index) => TextEditingController());
   final TextEditingController _groomNameController = TextEditingController();
   final TextEditingController _brideNameController = TextEditingController();
-  final TextEditingController _weddingDateController = TextEditingController();
+  final TextEditingController _weddingDateController = TextEditingController(text: '15th December 2024');
 
   bool _isOtpSent = false;
   bool _isCorrectOtp = false;
@@ -28,6 +28,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final List<FocusNode> _otpFocusNodes =
       List.generate(4, (index) => FocusNode());
+
+  
 
   @override
   void dispose() {
@@ -156,6 +158,8 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(height: 8),
         IntlPhoneField(
           controller: _phoneController,
+          cursorColor: Color(0xFF4E9459),
+          // textAlign: TextAlign,
           dropdownDecoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12),
@@ -165,14 +169,19 @@ class _LoginPageState extends State<LoginPage> {
           showDropdownIcon: false,
           disableLengthCheck: true,
           decoration: InputDecoration(
+            isDense: true,
             hintText: 'Enter your Ph. Number',
             errorText: _phoneError,
             hintStyle: GoogleFonts.manrope(
               fontSize: getResponsiveTextSize(context, 0.035),
               color: Color(0xff7B7B7B),
             ),
+            prefix: Padding(
+      padding: EdgeInsets.only(left: 8), // Adjust space as needed
+      child: Text(' '), // This adds a visible space
+    ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+            contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey.shade300),

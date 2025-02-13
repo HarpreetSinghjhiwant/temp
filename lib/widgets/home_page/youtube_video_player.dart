@@ -56,7 +56,7 @@ class _VideoReviewCardState extends State<VideoReviewCard> {
         width: 247,
         height: 398,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
               color: Colors.grey[350]!,
@@ -66,7 +66,7 @@ class _VideoReviewCardState extends State<VideoReviewCard> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(30),
           child: Stack(
             alignment: Alignment.center,
             children: [
