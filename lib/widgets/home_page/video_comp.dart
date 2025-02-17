@@ -3,45 +3,43 @@ import 'package:video_player/video_player.dart';
 
 class SimpleVideoPlayer extends StatefulWidget {
   final String videoUrl;
+  final String image;
 
-  const SimpleVideoPlayer({Key? key, required this.videoUrl}) : super(key: key);
+  const SimpleVideoPlayer({Key? key, required this.videoUrl, required this.image}) : super(key: key);
 
   @override
   _SimpleVideoPlayerState createState() => _SimpleVideoPlayerState();
 }
 
 class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
-  late VideoPlayerController _controller;
+  VideoPlayerController? _controller;
   bool _hasError = false;
-  bool _showControls = true;
-  bool _isPlaying = false;  // Add this to track playing state
-
-  @override
-  void initState() {
-    super.initState();
-    _initializePlayer();
-  }
+  bool _isInitialized = false;
+  bool _isPlaying = false;
+  bool _showThumbnail = true; // Initially, show the thumbnail
 
   Future<void> _initializePlayer() async {
     try {
       _controller = widget.videoUrl.startsWith('http')
-          ? VideoPlayerController.network(widget.videoUrl)
+          ? VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
           : VideoPlayerController.asset(widget.videoUrl);
 
-      await _controller.initialize();
-      
-      _controller.addListener(() {
-        final isPlaying = _controller.value.isPlaying;
-        if (isPlaying != _isPlaying) {
+      await _controller!.initialize();
+
+      _controller!.addListener(() {
+        if (_controller!.value.isPlaying != _isPlaying) {
           setState(() {
-            _isPlaying = isPlaying;
+            _isPlaying = _controller!.value.isPlaying;
           });
         }
       });
-      
+
       setState(() {
-        _hasError = false;
+        _isInitialized = true;
+        _showThumbnail = false; // Hide the thumbnail once the video starts
       });
+
+      _controller!.play();
     } catch (e) {
       print('Error initializing video: $e');
       setState(() {
@@ -51,39 +49,19 @@ class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
   }
 
   void _togglePlayPause() {
-    setState(() {
-      if (_controller.value.isPlaying) {
-        _controller.pause();
-        _showControls = true;
-      } else {
-        _controller.play();
-        _startHideTimer();
-      }
-    });
-  }
-
-  void _startHideTimer() {
-    Future.delayed(Duration(seconds: 2), () {
-      if (mounted && _controller.value.isPlaying) {
-        setState(() {
-          _showControls = false;
-        });
-      }
-    });
-  }
-
-  void _toggleControls() {
-    setState(() {
-      _showControls = !_showControls;
-      if (_controller.value.isPlaying && _showControls) {
-        _startHideTimer();
-      }
-    });
+    if (_controller == null) {
+      _initializePlayer();
+    } else if (_controller!.value.isPlaying) {
+      _controller!.pause();
+    } else {
+      _controller!.play();
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_hasError || _controller.value.hasError) {
+    if (_hasError) {
       return Center(
         child: Text(
           'Error loading video',
@@ -92,80 +70,69 @@ class _SimpleVideoPlayerState extends State<SimpleVideoPlayer> {
       );
     }
 
-    if (!_controller.value.isInitialized) {
-      return Center(child: CircularProgressIndicator());
-    }
-
     return AspectRatio(
-      aspectRatio: _controller.value.aspectRatio,
-      child: GestureDetector(
-        onTap: _toggleControls,
-        behavior: HitTestBehavior.translucent,  // Changed to translucent
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            VideoPlayer(_controller),
-            AnimatedOpacity(
-              opacity: _showControls ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 300),
+      aspectRatio: _isInitialized ? _controller!.value.aspectRatio : 16 / 9,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Show the video only if it's initialized
+          if (_isInitialized) VideoPlayer(_controller!),
+
+          // Show the thumbnail until the user presses it
+          if (_showThumbnail)
+            GestureDetector(
+              onTap: _initializePlayer,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.network(widget.image, fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                padding: EdgeInsets.all(12),
+                child: Icon(
+                  _isPlaying ? Icons.pause : Icons.play_arrow,
+                  size: 48,
+                  color: Color(0xff605F5F),
+                ),
+              ),
+                ],
+              ),
+            ),
+
+          // Play/Pause button overlay
+          if (_isInitialized)
+            Positioned(
               child: GestureDetector(
                 onTap: _togglePlayPause,
-                child: Container(
-                  color: Colors.transparent,
-                  child: _PlayPauseButton(
-                    controller: _controller,
-                    onTap: _togglePlayPause,
+                child: AnimatedOpacity(
+                  opacity: _isPlaying ? 0.0 : 1.0,
+                  duration: Duration(milliseconds: 300),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    padding: EdgeInsets.all(12),
+                    child: Icon(
+                      _isPlaying ? Icons.pause : Icons.play_arrow,
+                      size: 48,
+                      color: Color(0xff605F5F),
+                    ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
-  }
-}
-
-class _PlayPauseButton extends StatelessWidget {
-  final VideoPlayerController controller;
-  final VoidCallback onTap;
-
-  const _PlayPauseButton({required this.controller, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<VideoPlayerValue>(
-      valueListenable: controller,
-      builder: (context, value, child) {
-        return GestureDetector(
-          onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 8,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Icon(
-              value.isPlaying ? Icons.pause : Icons.play_arrow,
-              size: 48,
-              color: Color(0xff605F5F),
-            ),
-          ),
-        );
-      },
-    );
   }
 }

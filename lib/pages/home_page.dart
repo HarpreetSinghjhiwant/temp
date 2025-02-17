@@ -410,7 +410,7 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(20)),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: SimpleVideoPlayer(videoUrl: videoUrl)),
+              child: SimpleVideoPlayer(videoUrl: videoUrl,image: image,)),
         ),
       ),
     );

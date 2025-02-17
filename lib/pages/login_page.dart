@@ -29,8 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   final List<FocusNode> _otpFocusNodes =
       List.generate(4, (index) => FocusNode());
 
-  
-
   @override
   void dispose() {
     _phoneController.dispose();
@@ -467,21 +465,29 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildSkipButton() {
-    return Container(
-      width: 78,
-      height: 40, // Add padding for spacing
-      decoration: BoxDecoration(
-        color: Colors.black
-            .withOpacity(0.5), // Slight transparency for better visibility
-        borderRadius: BorderRadius.circular(50), // Rounded corners
-      ),
-      child: Center(
-        child: Text(
-          'Skip',
-          style: GoogleFonts.manrope(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          _isCorrectOtp = true;
+          _isOtpSent = true;
+        });
+      },
+      child: Container(
+        width: 78,
+        height: 40, // Add padding for spacing
+        decoration: BoxDecoration(
+          color: Colors.black
+              .withOpacity(0.5), // Slight transparency for better visibility
+          borderRadius: BorderRadius.circular(50), // Rounded corners
+        ),
+        child: Center(
+          child: Text(
+            'Skip',
+            style: GoogleFonts.manrope(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
         ),
       ),
